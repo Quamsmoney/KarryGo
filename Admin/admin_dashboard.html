@@ -1,0 +1,1580 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Dashboard - KarryGo</title>
+    <!-- =========================== CSS ========================== -->
+    <link rel="stylesheet" href="../css/dashboard.css" />
+
+    <!-- ===================== Tailwind CSS ==================== -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script type="module" src="https://static.rocket.new/rocket-web.js?_cfg=https%3A%2F%2Ffoodhub6417back.builtwithrocket.new&_v=0.1.2"></script>
+</head>
+
+<body class="bg-background min-h-screen">
+    <!-- =============== Header ================= -->
+    <header class="bg-surface shadow-elevation sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-wrap items-center justify-between gap-4 h-16">
+
+                <!-- ========== Logo & Title ========= -->
+                <div class="flex items-center gap-3 flex-1 md:flex-none">
+                    <div class="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
+                        <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd"
+                                d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.533 1.533 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.533 1.533 0 01.947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947zM10 13a3 3 0 100-6 3 3 0 000 6z"
+                                clip-rule="evenodd" />
+                        </svg>
+                    </div>
+                    <div>
+                        <h1 class="text-base sm:text-lg font-semibold text-text-primary">KarryGo Admin</h1>
+                        <p class="text-xs sm:text-sm text-text-secondary">Platform Management</p>
+                    </div>
+                </div>
+
+                <!-- ============= Header Actions ============== -->
+                <div class="flex items-center gap-4">
+                    <!-- ======== System Status (hidden on small screens) ========= -->
+                    <div class="hidden md:flex items-center space-x-2">
+                        <div class="w-2 h-2 bg-accent rounded-full status-indicator"></div>
+                        <span class="text-sm text-text-secondary">All Systems Operational</span>
+                    </div>
+
+                    <!-- ========== Notifications ========== -->
+                    <button class="relative p-2 rounded-lg hover:bg-gray-100 micro-interaction">
+                        <svg class="w-6 h-6 text-text-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M15 17h5l-5 5v-5zM9 14l6-6m-5.5-.5a2.5 2.5 0 105 5m0 0a2.5 2.5 0 105 5M12 2l3.09 6.26L22 9.27l-5 4.73 1.18 6.88L12 17.77l-6.18 3.11L7 14l-5-4.73 6.91-1.01L12 2z" />
+                        </svg>
+                        <div
+                            class="absolute -top-1 -right-1 w-5 h-5 bg-warning text-white text-xs rounded-full flex items-center justify-center">
+                            7</div>
+                    </button>
+
+                    <!-- ============ Admin Profile ============ -->
+                    <div class="flex items-center space-x-3">
+                        <div class="w-8 h-8 bg-secondary rounded-full flex items-center justify-center">
+                            <span class="text-white text-sm font-semibold">AD</span>
+                        </div>
+                        <div class="hidden md:block text-left">
+                            <p class="text-sm font-medium text-text-primary">Admin User</p>
+                            <p class="text-xs text-text-secondary">Super Admin</p>
+                        </div>
+                        <button class="hidden md:block text-text-secondary hover:text-text-primary micro-interaction">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M19 9l-7 7-7-7" />
+                            </svg>
+                        </button>
+
+                        <!-- Only visible on small screens -->
+                        <button id="openSidebarBtn" class="lg:hidden text-text-secondary hover:text-primary">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M4 6h16M4 12h16M4 18h16" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+
+    <div class="flex h-screen">
+        <!-- ================== Mobile Sidebar ===================== -->
+        <div id="mobile-sidebar" class="fixed inset-0 z-50 lg:hidden hidden bg-black/50 transition-opacity">
+            <div id="mobile-sidebar-content"
+                class="w-64 h-full bg-surface border-r border-border p-4 shadow-elevation transform translate-x-full transition-transform duration-300 ml-auto relative">
+                
+                <!-- Close Button -->
+                <button id="closeSidebarBtn"
+                    class="absolute top-4 right-4 text-red-500 hover:text-red-800 text-lg font-bold transition-colors">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+
+                <!-- Navigation Links -->
+                <nav class="mt-12 space-y-4">
+                    <a href="#riders"
+                        class="flex items-center space-x-3 px-3 py-2 rounded-lg text-text-secondary hover:bg-gray-50 hover:text-text-primary micro-interaction">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        <span>Delivery Riders</span>
+                        <span class="ml-auto bg-accent text-white text-xs px-2 py-1 rounded-full">8</span>
+                    </a>
+                    <a href="#finance"
+                        class="flex items-center space-x-3 px-3 py-2 rounded-lg text-text-secondary hover:bg-gray-50 hover:text-text-primary micro-interaction">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1" />
+                        </svg>
+                        <span>Financial Reports</span>
+                    </a>
+                    <a href="#content"
+                        class="flex items-center space-x-3 px-3 py-2 rounded-lg text-text-secondary hover:bg-gray-50 hover:text-text-primary micro-interaction">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z" />
+                        </svg>
+                        <span>Content Management</span>
+                    </a>
+                    <a href="#system"
+                        class="flex items-center space-x-3 px-3 py-2 rounded-lg text-text-secondary hover:bg-gray-50 hover:text-text-primary micro-interaction">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                        </svg>
+                        <span>System Settings</span>
+                    </a>
+                </nav>
+            </div>
+        </div>
+
+
+        <!-- ================== Sidebar ================= -->
+        <aside id="desktop-sidebar" class="w-64 bg-surface border-r border-border flex-shrink-0 hidden lg:block">
+            <nav class="p-4 space-y-2">
+                <a href="#dashboard"
+                    class="flex items-center space-x-3 px-3 py-2 rounded-lg bg-primary-50 text-primary font-medium hover:bg-gray-50 hover:text-text-primary micro-interaction">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                        <path
+                            d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z" />
+                    </svg>
+                    <span>Dashboard</span>
+                </a>
+                <a href="#users"
+                    class="flex items-center space-x-3 px-3 py-2 rounded-lg text-text-secondary hover:bg-gray-50 hover:text-text-primary micro-interaction">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z" />
+                    </svg>
+                    <span>User Management</span>
+                    <span class="ml-auto bg-primary text-white text-xs px-2 py-1 rounded-full">12</span>
+                </a>
+                <a href="#restaurants"
+                    class="flex items-center space-x-3 px-3 py-2 rounded-lg text-text-secondary hover:bg-gray-50 hover:text-text-primary micro-interaction">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                    </svg>
+                    <span>Restaurants</span>
+                    <span class="ml-auto bg-warning text-white text-xs px-2 py-1 rounded-full">3</span>
+                </a>
+                <a href="#riders"
+                    class="flex items-center space-x-3 px-3 py-2 rounded-lg text-text-secondary hover:bg-gray-50 hover:text-text-primary micro-interaction">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <span>Delivery Riders</span>
+                    <span class="ml-auto bg-accent text-white text-xs px-2 py-1 rounded-full">8</span>
+                </a>
+                <a href="#finance"
+                    class="flex items-center space-x-3 px-3 py-2 rounded-lg text-text-secondary hover:bg-gray-50 hover:text-text-primary micro-interaction">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1" />
+                    </svg>
+                    <span>Financial Reports</span>
+                </a>
+                <a href="#analytics"
+                    class="flex items-center space-x-3 px-3 py-2 rounded-lg text-text-secondary hover:bg-gray-50 hover:text-text-primary micro-interaction">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                    </svg>
+                    <span>Platform Analytics</span>
+                </a>
+                <a href="#content"
+                    class="flex items-center space-x-3 px-3 py-2 rounded-lg text-text-secondary hover:bg-gray-50 hover:text-text-primary micro-interaction">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z" />
+                    </svg>
+                    <span>Content Management</span>
+                </a>
+                <a href="#system"
+                    class="flex items-center space-x-3 px-3 py-2 rounded-lg text-text-secondary hover:bg-gray-50 hover:text-text-primary micro-interaction">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                    </svg>
+                    <span>System Settings</span>
+                </a>
+            </nav>
+        </aside>
+
+        <!-- ============= Main Content ============= -->
+        <main class="flex-1 overflow-y-auto scrollbar-thin pb-20 sm:pb-0">
+            <!-- ================== Platform Overview ================== -->
+            <section class="content-section p-6" id="dashboard">
+                <div class="bg-surface rounded-lg shadow-elevation p-6 mb-8">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-2xl font-bold text-text-primary">Restaurant Dashboard</p>
+                            <a href="./restaurant_vendor_dashboard.html" class="text-accent text-sm">View Now -></a>
+                        </div>
+                        <div class="w-12 h-12 bg-accent-50 rounded-lg flex items-center justify-center">
+                            <span class="h-6 text-accent" fill="none">RD</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- ============ Platform KPIs ============== -->
+                <div class="kpis grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                    <div class="bg-surface rounded-lg shadow-elevation p-6">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-text-secondary text-sm font-medium">Total Revenue</p>
+                                <p class="text-2xl font-bold text-text-primary">&#8358;47,329</p>
+                                <p class="text-accent text-sm">+18.2% from last month</p>
+                            </div>
+                            <div class="w-12 h-12 bg-accent-50 rounded-lg flex items-center justify-center">
+                                <span class="h-6 text-accent" fill="none">&#8358;</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-surface rounded-lg shadow-elevation p-6">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-text-secondary text-sm font-medium">Active Orders</p>
+                                <p class="text-2xl font-bold text-text-primary">284</p>
+                                <p class="text-primary text-sm">Real-time tracking</p>
+                            </div>
+                            <div class="w-12 h-12 bg-primary-50 rounded-lg flex items-center justify-center">
+                                <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M9 5H7a2 2 0 00-2 2v8a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-surface rounded-lg shadow-elevation p-6">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-text-secondary text-sm font-medium">Registered Users</p>
+                                <p class="text-2xl font-bold text-text-primary">12,847</p>
+                                <p class="text-accent text-sm">+247 this week</p>
+                            </div>
+                            <div class="w-12 h-12 bg-secondary text-white rounded-lg flex items-center justify-center">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z" />
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-surface rounded-lg shadow-elevation p-6">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-text-secondary text-sm font-medium">Partner Restaurants</p>
+                                <p class="text-2xl font-bold text-text-primary">156</p>
+                                <p class="text-warning text-sm">3 pending approval</p>
+                            </div>
+                            <div class="w-12 h-12 bg-warning text-white rounded-lg flex items-center justify-center">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ============= Real-time Platform Monitoring ====================== -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+                    <!-- ============ Recent Activities ============== -->
+                    <div class="bg-surface rounded-lg shadow-elevation p-6">
+                        <h3 class="text-lg font-semibold text-text-primary mb-4">Recent Platform Activities</h3>
+                        <div class="space-y-4">
+                            <div class="flex items-start space-x-3">
+                                <div class="w-2 h-2 bg-accent rounded-full mt-2 flex-shrink-0"></div>
+                                <div class="flex-1">
+                                    <p class="text-sm text-text-primary font-medium">New restaurant partner approved</p>
+                                    <p class="text-xs text-text-secondary">"Mario's Pizzeria" - Verified and activated
+                                    </p>
+                                    <p class="text-xs text-text-secondary">2 minutes ago</p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start space-x-3">
+                                <div class="w-2 h-2 bg-primary rounded-full mt-2 flex-shrink-0"></div>
+                                <div class="flex-1">
+                                    <p class="text-sm text-text-primary font-medium">High order volume detected</p>
+                                    <p class="text-xs text-text-secondary">Peak hour traffic - All systems stable</p>
+                                    <p class="text-xs text-text-secondary">5 minutes ago</p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start space-x-3">
+                                <div class="w-2 h-2 bg-warning rounded-full mt-2 flex-shrink-0"></div>
+                                <div class="flex-1">
+                                    <p class="text-sm text-text-primary font-medium">Payment gateway alert</p>
+                                    <p class="text-xs text-text-secondary">Minor latency detected - Monitoring</p>
+                                    <p class="text-xs text-text-secondary">12 minutes ago</p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start space-x-3">
+                                <div class="w-2 h-2 bg-accent rounded-full mt-2 flex-shrink-0"></div>
+                                <div class="flex-1">
+                                    <p class="text-sm text-text-primary font-medium">New rider application</p>
+                                    <p class="text-xs text-text-secondary">Background check initiated</p>
+                                    <p class="text-xs text-text-secondary">18 minutes ago</p>
+                                </div>
+                            </div>
+                        </div>
+                        <button
+                            class="w-full mt-4 text-primary hover:text-primary-600 text-sm font-medium micro-interaction">View
+                            All Activities</button>
+                    </div>
+
+                    <!-- ============ System Health ============ -->
+                    <div class="bg-surface rounded-lg shadow-elevation p-4 sm:p-6">
+                        <h3 class="text-base sm:text-lg font-semibold text-text-primary mb-4">System Health</h3>
+
+                        <div class="space-y-4">
+                            <!-- Item 1 -->
+                            <div class="flex flex-wrap items-center justify-between gap-2">
+                                <div class="flex items-center space-x-2 sm:space-x-3">
+                                    <div class="w-3 h-3 bg-accent rounded-full"></div>
+                                    <!-- <span class="text-sm sm:text-base font-medium text-text-primary">API Response Time</span> -->
+                                    <span class="text-sm font-medium text-text-primary">API Response Time</span>
+                                </div>
+                                <span class="text-sm text-accent font-medium">142ms</span>
+                            </div>
+
+                            <!-- Item 2 -->
+                            <div class="flex flex-wrap items-center justify-between gap-2">
+                                <div class="flex items-center space-x-2 sm:space-x-3">
+                                    <div class="w-3 h-3 bg-accent rounded-full"></div>
+                                    <span class="text-sm font-medium text-text-primary">Database Performance</span>
+                                </div>
+                                <span class="text-sm text-accent font-medium">99.9%</span>
+                            </div>
+
+                            <!-- Item 3 -->
+                            <div class="flex flex-wrap items-center justify-between gap-2">
+                                <div class="flex items-center space-x-2 sm:space-x-3">
+                                    <div class="w-3 h-3 bg-warning rounded-full"></div>
+                                    <span class="text-sm font-medium text-text-primary">Payment Gateway</span>
+                                </div>
+                                <span class="text-sm text-warning font-medium">2.1s avg</span>
+                            </div>
+
+                            <!-- Item 4 -->
+                            <div class="flex flex-wrap items-center justify-between gap-2">
+                                <div class="flex items-center space-x-2 sm:space-x-3">
+                                    <div class="w-3 h-3 bg-accent rounded-full"></div>
+                                    <span class="text-sm font-medium text-text-primary">Server Uptime</span>
+                                </div>
+                                <span class="text-sm text-accent font-medium">99.97%</span>
+                            </div>
+                        </div>
+
+                        <!-- Bottom Alert -->
+                        <div class="mt-6 p-4 bg-accent-50 rounded-lg">
+                            <div class="flex flex-wrap items-center gap-2 sm:gap-3">
+                                <svg class="w-5 h-5 text-accent shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                                </svg>
+                                <span class="text-sm font-medium text-accent">All Critical Systems Operational</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- ============== Management Tables ============== -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    <!-- ========== Pending Approvals =========== -->
+                    <div class="bg-surface rounded-lg shadow-elevation p-4 sm:p-6">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-base sm:text-lg font-semibold text-text-primary">Pending Approvals</h3>
+                            <span class="bg-warning text-white text-xs px-2 py-1 rounded-full">15</span>
+                        </div>
+
+                        <div class="space-y-4">
+                            <!-- Approval Card 1 -->
+                            <div class="border border-border rounded-lg p-3 space-y-2">
+                                <div class="flex flex-wrap items-center justify-between">
+                                    <span class="font-medium text-text-primary">Golden Dragon Restaurant</span>
+                                    <span class="text-xs bg-warning text-white px-2 py-1 rounded-full">Restaurant</span>
+                                </div>
+                                <p class="text-sm text-text-secondary">Chinese cuisine • Downtown location</p>
+                                <div class="flex flex-col sm:flex-row sm:space-x-2 space-y-2 sm:space-y-0">
+                                    <button class="flex-1 bg-accent text-white py-1 px-3 rounded text-sm hover:bg-accent-700 micro-interaction">
+                                        Approve
+                                    </button>
+                                    <button class="flex-1 bg-error text-white py-1 px-3 rounded text-sm hover:bg-red-700 micro-interaction">
+                                        Reject
+                                    </button>
+                                    <button class="flex-1 sm:flex-none px-3 py-1 border border-border rounded text-sm hover:bg-gray-50 micro-interaction">
+                                        Review
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Approval Card 2 -->
+                            <div class="border border-border rounded-lg p-3 space-y-2">
+                                <div class="flex flex-wrap items-center justify-between">
+                                    <span class="font-medium text-text-primary">Sarah Johnson</span>
+                                    <span class="text-xs bg-primary text-white px-2 py-1 rounded-full">Rider</span>
+                                </div>
+                                <p class="text-sm text-text-secondary">Motorcycle • 4.8 rating from previous platform</p>
+                                <div class="flex flex-col sm:flex-row sm:space-x-2 space-y-2 sm:space-y-0">
+                                    <button class="flex-1 bg-accent text-white py-1 px-3 rounded text-sm hover:bg-accent-700 micro-interaction">
+                                        Approve
+                                    </button>
+                                    <button class="flex-1 bg-error text-white py-1 px-3 rounded text-sm hover:bg-red-700 micro-interaction">
+                                        Reject
+                                    </button>
+                                    <button class="flex-1 sm:flex-none px-3 py-1 border border-border rounded text-sm hover:bg-gray-50 micro-interaction">
+                                        Review
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button class="w-full mt-4 text-primary hover:text-primary-600 text-sm font-medium micro-interaction">
+                            View All Pending
+                        </button>
+                    </div>
+
+                    <!-- ============== Top Performing Restaurants ================ -->
+                    <div class="bg-surface rounded-lg shadow-elevation p-4 sm:p-6">
+                        <h3 class="text-base sm:text-lg font-semibold text-text-primary mb-4">Top Performing Restaurants</h3>
+
+                        <div class="space-y-3">
+                            <!-- Restaurant 1 -->
+                            <div
+                                class="flex flex-col sm:flex-row sm:items-center justify-between p-3 bg-accent-50 rounded-lg gap-3">
+                                <div class="flex items-center space-x-3">
+                                    <div class="w-8 h-8 bg-warning text-white rounded-full flex items-center justify-center text-sm font-bold">
+                                        1
+                                    </div>
+                                    <div>
+                                        <p class="font-medium text-text-primary">Bella's Italian Kitchen</p>
+                                        <p class="text-sm text-text-secondary">4.9 ★ • 234 orders today</p>
+                                    </div>
+                                </div>
+                                <span class="font-bold text-accent sm:text-right">&#8358;2,847</span>
+                            </div>
+
+                            <!-- Restaurant 2 -->
+                            <div
+                                class="flex flex-col sm:flex-row sm:items-center justify-between p-3 bg-gray-50 rounded-lg gap-3">
+                                <div class="flex items-center space-x-3">
+                                    <div class="w-8 h-8 bg-text-secondary text-white rounded-full flex items-center justify-center text-sm font-bold">
+                                        2
+                                    </div>
+                                    <div>
+                                        <p class="font-medium text-text-primary">Spice Garden</p>
+                                        <p class="text-sm text-text-secondary">4.7 ★ • 187 orders today</p>
+                                    </div>
+                                </div>
+                                <span class="font-bold text-text-primary sm:text-right">&#8358;2,134</span>
+                            </div>
+
+                            <!-- Restaurant 3 -->
+                            <div
+                                class="flex flex-col sm:flex-row sm:items-center justify-between p-3 bg-gray-50 rounded-lg gap-3">
+                                <div class="flex items-center space-x-3">
+                                    <div class="w-8 h-8 bg-text-secondary text-white rounded-full flex items-center justify-center text-sm font-bold">
+                                        3
+                                    </div>
+                                    <div>
+                                        <p class="font-medium text-text-primary">Burger Junction</p>
+                                        <p class="text-sm text-text-secondary">4.6 ★ • 156 orders today</p>
+                                    </div>
+                                </div>
+                                <span class="font-bold text-text-primary sm:text-right">&#8358;1,923</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- ================== Platform Analytics Chart =================== -->
+                <div class="mt-6 sm:mt-8">
+                    <div class="bg-surface rounded-lg shadow-elevation p-4 sm:p-6">
+                        <!-- Header -->
+                        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4 sm:mb-6 gap-4 sm:gap-0">
+                            <h3 class="text-base sm:text-lg font-semibold text-text-primary">
+                                Platform Performance Analytics
+                            </h3>
+                            <div class="flex flex-wrap gap-2 sm:space-x-2">
+                                <button class="px-3 py-1 border border-primary text-primary rounded text-sm hover:bg-primary hover:text-white micro-interaction">
+                                    Today
+                                </button>
+                                <button class="px-3 py-1 border border-border text-text-secondary rounded text-sm hover:border-primary hover:text-primary micro-interaction">
+                                    Week
+                                </button>
+                                <button class="px-3 py-1 border border-border text-text-secondary rounded text-sm hover:border-primary hover:text-primary micro-interaction">
+                                    Month
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Chart Placeholder -->
+                        <div class="h-56 sm:h-64 chart-placeholder rounded-lg flex items-center justify-center">
+                            <div class="text-center px-4">
+                                <svg class="w-12 h-12 sm:w-16 sm:h-16 mx-auto mb-2 sm:mb-4 text-text-secondary" fill="none"
+                                stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                                </svg>
+                                <p class="text-sm sm:text-base text-text-secondary">Analytics Chart Placeholder</p>
+                                <p class="text-xs sm:text-sm text-text-secondary">Revenue, Orders, and User Activity Trends</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+
+            <!-- ================== User Overview ================ -->
+            <section class="content-section p-4 sm:p-6 hidden" id="users">
+                <div class="bg-surface rounded-lg shadow-elevation p-4 sm:p-6">
+                    <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6">
+                        <h2 class="text-lg font-semibold text-text-primary">User Management</h2>
+                        <button class="bg-primary text-white font-medium px-4 py-2 rounded hover:bg-primary-600 transition">
+                            Add User
+                        </button>
+                    </div>
+
+                    <!-- ============ Search & Filter ========== -->
+                    <!-- <div class="flex items-center justify-between gap-4 mb-6">
+                        <input type="text" placeholder="Search users" class="outline-none w-full md:w-2/3 px-4 py-2 border border-border rounded-lg focus:ring-2 focus:ring-primary outline-none"/>
+                        <select
+                        class="outline-none min-w-full md:w-1/3 px-4 py-2 border border-border rounded-lg focus:ring-2 focus:ring-primary outline-none">
+                            <option value="" disabled selected hidden>All Statuses</option>
+                            <option value="open">Open</option>
+                            <option value="closed">Closed</option>
+                            <option value="active">Active</option>
+                        </select>
+                    </div> --> 
+                    
+                    <div class="flex flex-col md:flex-row items-stretch gap-4 mb-6">
+                        <input type="text" placeholder="Search users"
+                            class="flex-1 px-4 py-2 border border-border rounded-lg focus:ring-2 focus:ring-primary outline-none" />
+                        <select
+                            class="flex-1 md:w-1/3 px-4 py-2 border border-border rounded-lg focus:ring-2 focus:ring-primary outline-none">
+                            <option value="" disabled selected hidden>All Statuses</option>
+                            <option value="open">Open</option>
+                            <option value="closed">Closed</option>
+                            <option value="active">Active</option>
+                        </select>
+                    </div>
+
+                    <!-- ================ Table ================ -->
+                    <!-- <div class="overflow-x-auto">
+                        <table class="w-full text-sm text-left" align="center">
+                            <thead>
+                                <tr class="text-text-secondary border-b border-border">
+                                    <th class="py-3 px-4">Name</th>
+                                    <th class="py-3 px-4">Email</th>
+                                    <th class="py-3 px-4">Role</th>
+                                    <th class="py-3 px-4">status</th>
+                                    <th class="py-3 px-4">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody class="text-text-primary divide-y divide-border" align="center">
+                                <tr class="hover:bg-gray-50 transition">
+                                    <td class="flex items-center gap-3 py-3 px-4">
+                                        <div class="w-8 h-8 bg-warning text-white rounded-full flex items-center justify-center text-xs font-semibold">LA</div>
+                                        <span class="font-medium">Lawal Adam</span>
+                                    </td>
+                                    <td class="px-4">lawaladam@gmail.com</td>
+                                    <td class="px-4">Admin</td>
+                                    <td class="px-4">
+                                        <span class="bg-accent text-white text-xs font-medium px-2 py-1 rounded-full">Active</span>
+                                    </td>
+                                    <td class="px-4">
+                                        <a href="#" class="text-primary hover:underline">Edit</a>
+                                    </td>
+                                </tr>
+
+                                <tr class="hover:bg-gray-50 transition">
+                                    <td class="flex items-center gap-3 py-3 px-4">
+                                        <div class="w-8 h-8 bg-accent text-white rounded-full flex items-center justify-center text-xs font-semibold">SS</div>
+                                        <span>Shittu Seyi</span>
+                                    </td>
+                                    <td class="px-4">lawaladam@gmail.com</td>
+                                    <td class="px-4">Admin</td>
+                                    <td class="px-4">
+                                        <span class="bg-error text-white text-xs font-medium px-2 py-1 rounded-full">Inactive</span>
+                                    </td>
+                                    <td class="px-4">
+                                        <a href="#" class="text-primary hover:underline">Edit</a>
+                                    </td>
+                                </tr>
+
+                                <tr class="hover:bg-gray-50 transition">
+                                    <td class="flex items-center gap-3 py-3 px-4">
+                                        <div class="w-8 h-8 bg-text-secondary text-white rounded-full flex items-center justify-center text-xs font-semibold">AA</div>
+                                        <span>Ayomikun Adebayo</span>
+                                    </td>
+                                    <td class="px-4">lawaladam@gmail.com</td>
+                                    <td class="px-4">Admin</td>
+                                    <td class="px-4">
+                                        <span class="bg-gray-200 text-gray-700 text-xs font-medium px-2 py-1 rounded-full">Inactive</span>
+                                    </td>
+                                    <td class="px-4">
+                                        <a href="#" class="text-primary hover:underline">Edit</a>
+                                    </td>
+                                </tr>
+
+                                <tr class="hover:bg-gray-50 transition">
+                                    <td class="flex items-center gap-3 py-3 px-4">
+                                        <div class="w-8 h-8 bg-secondary text-white rounded-full flex items-center justify-center text-xs font-semibold">OG</div>
+                                        <span>Otito Green</span>
+                                    </td>
+                                    <td class="px-4">lawaladam@gmail.com</td>
+                                    <td class="px-4">Admin</td>
+                                    <td class="px-4">
+                                        <span class="bg-accent text-white text-xs font-medium px-2 py-1 rounded-full">Active</span>
+                                    </td>
+                                    <td class="px-4">
+                                        <a href="#" class="text-primary hover:underline">Edit</a>
+                                    </td>
+                                </tr>
+
+                                <tr class="hover:bg-gray-50 transition">
+                                    <td class="flex items-center gap-3 py-3 px-4">
+                                        <div class="w-8 h-8 bg-text-secondary text-white rounded-full flex items-center justify-center text-xs font-semibold">RA</div>
+                                        <span>Raji Ahmad</span>
+                                    </td>
+                                    <td class="px-4">lawaladam@gmail.com</td>
+                                    <td class="px-4">Admin</td>
+                                    <td class="px-4">
+                                        <span class="bg-accent text-white text-xs font-medium px-2 py-1 rounded-full">Active</span>
+                                    </td>
+                                    <td class="px-4">
+                                        <a href="#" class="text-primary hover:underline">Edit</a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div> -->
+
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full text-sm text-left">
+                            <thead>
+                                <tr class="text-text-secondary border-b border-border">
+                                    <th class="py-3 px-4 whitespace-nowrap">Name</th>
+                                    <th class="py-3 px-4">Email</th>
+                                    <th class="py-3 px-4">Role</th>
+                                    <th class="py-3 px-4">Status</th>
+                                    <th class="py-3 px-4">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody class="text-text-primary divide-y divide-border">
+                                <!-- User Row -->
+                                <tr class="hover:bg-gray-50 transition">
+                                    <td class="py-3 px-4">
+                                        <div class="flex items-center gap-3">
+                                            <div class="w-8 h-8 bg-warning text-white rounded-full flex items-center justify-center text-xs font-semibold">
+                                                LA
+                                            </div>
+                                            <span class="font-medium whitespace-nowrap min-w-[9rem]">Lawal Adam</span>
+                                        </div>
+                                    </td>
+                                    <td class="py-3 px-4 text-text-secondary">lawaladam@gmail.com</td>
+                                    <td class="py-3 px-4 text-text-secondary">Admin</td>
+                                    <td class="py-3 px-4">
+                                        <span class="bg-green-100 text-green-600 text-xs font-medium px-2 py-1 rounded-full">Active</span>
+                                    </td>
+                                    <td class="py-3 px-4">
+                                        <a href="#" class="text-primary hover:underline">Edit</a>
+                                    </td>
+                                </tr>
+
+                                <tr class="hover:bg-gray-50 transition">
+                                    <td class="py-3 px-4">
+                                        <div class="flex items-center gap-3">
+                                            <div class="w-8 h-8 bg-accent text-white rounded-full flex items-center justify-center text-xs font-semibold">
+                                                SS
+                                            </div>
+                                            <span class="font-medium">Shittu Seyi</span>
+                                        </div>
+                                    </td>
+                                    <td class="py-3 px-4 text-text-secondary">lawaladam@gmail.com</td>
+                                    <td class="py-3 px-4 text-text-secondary">Admin</td>
+                                    <td class="py-3 px-4">
+                                        <span class="bg-gray-200 text-gray-700 text-xs font-medium px-2 py-1 rounded-full">Inactive</span>
+                                    </td>
+                                    <td class="py-3 px-4">
+                                        <a href="#" class="text-primary hover:underline">Edit</a>
+                                    </td>
+                                </tr>
+
+                                <tr class="hover:bg-gray-50 transition">
+                                    <td class="flex items-center gap-3 py-3 px-4">
+                                        <div class="w-8 h-8 bg-text-secondary text-white rounded-full flex items-center justify-center text-xs font-semibold">
+                                            AA
+                                        </div>
+                                        <span class="font-medium">Ayomikun Adebayo</span>
+                                    </td>
+                                    <td class="px-4 text-text-secondary">lawaladam@gmail.com</td>
+                                    <td class="px-4 text-text-secondary">Admin</td>
+                                    <td class="px-4">
+                                        <span
+                                            class="bg-gray-200 text-gray-700 text-xs font-medium px-2 py-1 rounded-full">Inactive</span>
+                                    </td>
+                                    <td class="px-4">
+                                        <a href="#" class="text-primary hover:underline">Edit</a>
+                                    </td>
+                                </tr>
+
+                                <tr class="hover:bg-gray-50 transition">
+                                    <td class="flex items-center gap-3 py-3 px-4">
+                                        <div class="w-8 h-8 bg-secondary text-white rounded-full flex items-center justify-center text-xs font-semibold">
+                                            OG
+                                        </div>
+                                        <span class="font-medium">Otito Green</span>
+                                    </td>
+                                    <td class="px-4 text-text-secondary">lawaladam@gmail.com</td>
+                                    <td class="px-4 text-text-secondary">Admin</td>
+                                    <td class="px-4">
+                                        <span class="bg-green-100 text-green-600 bg-accen text-whit text-xs font-medium px-2 py-1 rounded-full">Active</span>
+                                    </td>
+                                    <td class="px-4">
+                                        <a href="#" class="text-primary hover:underline">Edit</a>
+                                    </td>
+                                </tr>
+
+                                <tr class="hover:bg-gray-50 transition">
+                                    <td class="flex items-center gap-3 py-3 px-4">
+                                        <div class="w-8 h-8 bg-text-secondary text-white rounded-full flex items-center justify-center text-xs font-semibold">
+                                            RA
+                                        </div>
+                                        <span class="font-medium">Raji Ahmad</span>
+                                    </td>
+                                    <td class="px-4 text-text-secondary">lawaladam@gmail.com</td>
+                                    <td class="px-4 text-text-secondary">Admin</td>
+                                    <td class="px-4">
+                                        <span class="bg-green-100 text-green-600 bg-accen text-whit text-xs font-medium px-2 py-1 rounded-full">Active</span>
+                                    </td>
+                                    <td class="px-4">
+                                        <a href="#" class="text-primary hover:underline">Edit</a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ================== Restaurants Overview =================== -->
+            <section class="content-section p-4 sm:p-6 hidden" id="restaurants">
+                <div class="bg-surface rounded-lg shadow-elevation p-4 sm:p-6 space-y-6">
+                    <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                        <h2 class="text-lg font-semibold text-text-primary">Restaurants</h2>
+                        <button class="bg-primary text-white font-medium px-4 py-2 rounded hover:bg-primary-600 transition">
+                            Add Restaurant
+                        </button>
+                    </div>
+
+                    <!-- ============ Search + Filter ========== -->
+                    <div class="flex flex-col md:flex-row items-stretch gap-4">
+                        <input type="text" placeholder="Search restaurants"
+                            class="flex-1 px-4 py-2 border border-border rounded-lg focus:ring-2 focus:ring-primary outline-none" />
+                        <select
+                            class="flex-1 md:w-1/3 px-4 py-2 border border-border rounded-lg focus:ring-2 focus:ring-primary outline-none">
+                            <option value="" disabled selected hidden>All Statuses</option>
+                            <option value="open">Open</option>
+                            <option value="closed">Closed</option>
+                            <option value="active">Active</option>
+                        </select>
+                    </div>
+
+                    <!-- ================ Table ================ -->
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full text-sm text-left">
+                            <thead>
+                                <tr class="text-text-secondary border-b border-border">
+                                    <th class="py-3 px-4 whitespace-nowrap">Name</th>
+                                    <th class="py-3 px-4">Cuisine</th>
+                                    <th class="py-3 px-4">Status</th>
+                                    <th class="py-3 px-4">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody class="text-text-primary divide-y divide-border">
+                                <tr class="hover:bg-gray-50 transition">
+                                    <td class="py-3 px-4">
+                                        <div class="flex items-center gap-3">
+                                            <div class="w-8 h-8 bg-orange-500 text-white rounded-full flex items-center justify-center text-xs font-semibold">
+                                                SG
+                                            </div>
+                                            <span class="font-medium whitespace-nowrap min-w-[9rem]">Savory Grill</span>
+                                        </div>
+                                    </td>
+                                    <td class="py-3 px-4 text-text-secondary">American</td>
+                                    <td class="py-3 px-4">
+                                        <span class="bg-green-100 text-green-600 text-xs font-medium px-2 py-1 rounded-full">Open</span>
+                                    </td>
+                                    <td class="py-3 px-4">
+                                        <a href="#" class="text-primary hover:underline">Edit</a>
+                                    </td>
+                                </tr>
+
+                                <tr class="hover:bg-gray-50 transition">
+                                    <td class="py-3 px-4">
+                                        <div class="flex items-center gap-3">
+                                            <div class="w-8 h-8 bg-green-600 text-white rounded-full flex items-center justify-center text-xs font-semibold">
+                                                MI
+                                            </div>
+                                            <span class="font-medium whitespace-nowrap min-w-[9rem]">Mario's Italian Kitchen</span>
+                                        </div>
+                                    </td>
+                                    <td class="py-3 px-4 text-text-secondary">Italian</td>
+                                    <td class="py-3 px-4">
+                                        <span class="bg-gray-200 text-gray-700 text-xs font-medium px-2 py-1 rounded-full">Closed</span>
+                                    </td>
+                                    <td class="py-3 px-4">
+                                        <a href="#" class="text-primary hover:underline">Edit</a>
+                                    </td>
+                                </tr>
+
+                                <tr class="hover:bg-gray-50 transition">
+                                    <td class="py-3 px-4">
+                                        <div class="flex items-center gap-3">
+                                            <div class="w-8 h-8 bg-text-secondary text-white rounded-full flex items-center justify-center text-xs font-semibold">
+                                                GG
+                                            </div>
+                                            <span class="font-medium whitespace-nowrap min-w-[9rem]">Green Garden</span>
+                                        </div>
+                                    </td>
+                                    <td class="py-3 px-4 text-text-secondary">Italian</td>
+                                    <td class="py-3 px-4">
+                                        <span class="bg-gray-200 text-gray-700 text-xs font-medium px-2 py-1 rounded-full">Closed</span>
+                                    </td>
+                                    <td class="py-3 px-4">
+                                        <a href="#" class="text-primary hover:underline">Edit</a>
+                                    </td>
+                                </tr>
+
+                                <tr class="hover:bg-gray-50 transition">
+                                    <td class="py-3 px-4">
+                                        <div class="flex items-center gap-3">
+                                            <div class="w-8 h-8 bg-purple-500 text-white rounded-full flex items-center justify-center text-xs font-semibold">
+                                                GG
+                                            </div>
+                                            <span class="font-medium whitespace-nowrap min-w-[9rem]">Green Garden</span>
+                                        </div>
+                                    </td>
+                                    <td class="py-3 px-4 text-text-secondary">American</td>
+                                    <td class="py-3 px-4">
+                                        <span class="bg-green-100 text-green-600 text-xs font-medium px-2 py-1 rounded-full">Active</span>
+                                    </td>
+                                    <td class="py-3 px-4">
+                                        <a href="#" class="text-primary hover:underline">Edit</a>
+                                    </td>
+                                </tr>
+
+                                <tr class="hover:bg-gray-50 transition">
+                                    <td class="py-3 px-4">
+                                        <div class="flex items-center gap-3">
+                                            <div class="w-8 h-8 bg-red-500 text-white rounded-full flex items-center justify-center text-xs font-semibold">
+                                                BB
+                                            </div>
+                                            <span class="font-medium whitespace-nowrap min-w-[9rem]">Burger Barn</span>
+                                        </div>
+                                    </td>
+                                    <td class="py-3 px-4 text-text-secondary">American</td>
+                                    <td class="py-3 px-4">
+                                        <span class="bg-green-100 text-green-600 text-xs font-medium px-2 py-1 rounded-full">Open</span>
+                                    </td>
+                                    <td class="py-3 px-4">
+                                        <a href="#" class="text-primary hover:underline">Edit</a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Cards (Responsive Stack) -->
+                    <div class="space-y-4">
+                        <div class="bg-white border border-border rounded-lg p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                            <div class="flex items-center gap-4">
+                                <div class="w-10 h-10 rounded-full bg-orange-500 text-white flex items-center justify-center font-bold text-sm">
+                                    SG
+                                </div>
+                                <div>
+                                    <p class="font-medium text-text-primary">Savory Grill</p>
+                                    <p class="text-sm text-text-secondary">American Cuisine</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-4">
+                                <span class="bg-green-100 text-green-700 text-xs font-semibold px-2 py-1 rounded-full">Open</span>
+                                <a href="#" class="text-primary hover:underline text-sm font-medium">Edit</a>
+                            </div>
+                        </div>
+
+                        <div class="bg-white border border-border rounded-lg p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                            <div class="flex items-center gap-4">
+                                <div class="w-10 h-10 rounded-full bg-green-600 text-white flex items-center justify-center font-bold text-sm">
+                                    MI
+                                </div>
+                                <div>
+                                    <p class="font-medium text-text-primary">Mario's Italian Kitchen</p>
+                                    <p class="text-sm text-text-secondary">Italian Cuisine</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-4">
+                                <span class="bg-gray-200 text-gray-700 text-xs font-semibold px-2 py-1 rounded-full">Closed</span>
+                                <a href="#" class="text-primary hover:underline text-sm font-medium">Edit</a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                
+            </section>
+
+            <!-- ================== Delivery Riders Overview ================ -->
+            <section class="content-section p-4 sm:p-6 hidden" id="riders">
+                <div class="bg-surface rounded-lg shadow-elevation p-4 sm:p-6 space-y-6">
+                    <!-- Header -->
+                    <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                        <h2 class="text-lg font-semibold text-text-primary">Delivery Riders</h2>
+                        <button
+                            class="bg-primary text-white font-medium px-4 py-2 rounded hover:bg-primary-600 transition">
+                            Add Rider
+                        </button>
+                    </div>
+
+                    <!-- ============ Search Input ========== -->
+                    <div class="flex flex-col md:flex-row items-stretch gap-4">
+                        <input type="text" placeholder="Search riders"
+                            class="w-full md:w-2/3 px-4 py-2 border border-border rounded-lg focus:ring-2 focus:ring-primary outline-none" />
+                    </div>
+
+                    <!-- ================ Riders Table ================ -->
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full text-sm text-left">
+                            <thead>
+                                <tr class="text-text-secondary border-b border-border">
+                                    <th class="py-3 px-4 whitespace-nowrap">Name</th>
+                                    <th class="py-3 px-4">Email</th>
+                                    <th class="py-3 px-4  whitespace-nowrap">Phone</th>
+                                    <th class="py-3 px-4">Status</th>
+                                    <th class="py-3 px-4">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody class="text-text-primary divide-y divide-border">
+                                <!-- Rider Row -->
+                                <tr class="hover:bg-gray-50 transition">
+                                    <td class="py-3 px-4">
+                                        <div class="flex items-center gap-3">
+                                            <div
+                                            class="w-8 h-8 bg-warning text-white rounded-full flex items-center justify-center text-xs font-semibold">LA</div>
+                                            <span class="font-medium whitespace-nowrap min-w-[9rem]">Lawal Adam</span>
+                                        </div>
+                                    </td>
+                                    <td class="py-3 px-4 text-text-secondary">lawaladam@gmail.com</td>
+                                    <td class="py-3 px-4 text-text-secondary whitespace-nowrap min-w-[9rem]">0801-234-5678</td>
+                                    <td class="py-3 px-4">
+                                        <span
+                                            class="bg-green-100 text-green-600 text-xs font-medium px-2 py-1 rounded-full">Online</span>
+                                    </td>
+                                    <td class="py-3 px-4">
+                                        <a href="#" class="text-primary hover:underline">Edit</a>
+                                    </td>
+                                </tr>
+
+                                <tr class="hover:bg-gray-50 transition">
+                                    <td class="py-3 px-4">
+                                        <div class="flex items-center gap-3">
+                                            <div
+                                            class="w-8 h-8 bg-accent text-white rounded-full flex items-center justify-center text-xs font-semibold">SS</div>
+                                            <span class="font-medium">Shittu Seyi</span>
+                                        </div>
+                                    </td>
+                                    <td class="py-3 px-4 text-text-secondary">lawaladam@gmail.com</td>
+                                    <td class="py-3 px-4 text-text-secondary whitespace-nowrap min-w-[9rem]">0801-234-5678</td>
+                                    <td class="py-3 px-4">
+                                        <span
+                                            class="bg-gray-200 text-gray-700 text-xs font-medium px-2 py-1 rounded-full">Offline</span>
+                                    </td>
+                                    <td class="py-3 px-4">
+                                        <a href="#" class="text-primary hover:underline">Edit</a>
+                                    </td>
+                                </tr>
+
+                                <tr class="hover:bg-gray-50 transition">
+                                    <td class="py-3 px-4">
+                                        <div class="flex items-center gap-3">
+                                            <div
+                                            class="w-8 h-8 bg-text-secondary text-white rounded-full flex items-center justify-center text-xs font-semibold">AA</div>
+                                            <span class="font-medium">Ayomikun Adebayo</span>
+                                        </div>
+                                    </td>
+                                    <td class="py-3 px-4 text-text-secondary">lawaladam@gmail.com</td>
+                                    <td class="py-3 px-4 text-text-secondary whitespace-nowrap min-w-[9rem]">0801-234-5678</td>
+                                    <td class="py-3 px-4">
+                                        <span
+                                            class="bg-gray-200 text-gray-700 text-xs font-medium px-2 py-1 rounded-full">Offline</span>
+                                    </td>
+                                    <td class="py-3 px-4">
+                                        <a href="#" class="text-primary hover:underline">Edit</a>
+                                    </td>
+                                </tr>
+
+                                <tr class="hover:bg-gray-50 transition">
+                                    <td class="py-3 px-4">
+                                        <div class="flex items-center gap-3">
+                                            <div
+                                            class="w-8 h-8 bg-secondary text-white rounded-full flex items-center justify-center text-xs font-semibold">OG</div>
+                                            <span class="font-medium">Otito Green</span>
+                                        </div>
+                                    </td>
+                                    <td class="py-3 px-4 text-text-secondary">lawaladam@gmail.com</td>
+                                    <td class="py-3 px-4 text-text-secondary whitespace-nowrap min-w-[9rem]">0801-234-5678</td>
+                                    <td class="py-3 px-4">
+                                        <span
+                                            class="bg-green-100 text-green-600 text-xs font-medium px-2 py-1 rounded-full">Online</span>
+                                    </td>
+                                    <td class="py-3 px-4">
+                                        <a href="#" class="text-primary hover:underline">Edit</a>
+                                    </td>
+                                </tr>
+
+                                <tr class="hover:bg-gray-50 transition">
+                                    <td class="py-3 px-4">
+                                        <div class="flex items-center gap-3">
+                                            <div
+                                            class="w-8 h-8 bg-text-secondary text-white rounded-full flex items-center justify-center text-xs font-semibold">RA</div>
+                                            <span class="font-medium">Raji Ahmad</span>
+                                        </div>
+                                    </td>
+                                    <td class="py-3 px-4 text-text-secondary">lawaladam@gmail.com</td>
+                                    <td class="py-3 px-4 text-text-secondary whitespace-nowrap min-w-[9rem]">0801-234-5678</td>
+                                    <td class="py-3 px-4">
+                                        <span
+                                            class="bg-green-100 text-green-600 text-xs font-medium px-2 py-1 rounded-full">Online</span>
+                                    </td>
+                                    <td class="py-3 px-4">
+                                        <a href="#" class="text-primary hover:underline">Edit</a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ================= Financial Reports Section ================= -->
+            <section class="content-section p-6 hidden" id="finance">
+                <!-- KPI Grid Section -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 mb-6">
+                    <!-- Total Revenue -->
+                    <div class="bg-white border rounded-lg p-4 shadow-sm">
+                        <p class="text-sm text-gray-500 font-medium">Total Revenue</p>
+                        <h2 class="text-2xl font-bold text-text-primary">₦1,203,456</h2>
+                        <span
+                            class="inline-block mt-2 text-xs font-semibold text-green-700 bg-green-100 px-2 py-1 rounded-full">+12.5%</span>
+                    </div>
+
+                    <!-- Expenses -->
+                    <div class="bg-surface border rounded-lg shadow-sm p-4">
+                        <h6 class="text-sm text-gray-500 font-medium">Expenses</h6>
+                        <h4 class="text-xl font-bold text-text-primary">₦643,210</h4>
+                        <span
+                            class="inline-block mt-2 text-xs font-semibold text-red-700 bg-red-100 px-2 py-1 rounded-full">-4.3%</span>
+                    </div>
+
+                    <!-- Net Profit -->
+                    <div class="bg-white border rounded-lg p-4 shadow-sm">
+                        <p class="text-sm text-gray-500 font-medium">Net Profit</p>
+                        <h2 class="text-2xl font-bold text-text-primary">₦560,246</h2>
+                        <span
+                            class="inline-block mt-2 text-xs font-semibold text-green-700 bg-green-100 px-2 py-1 rounded-full">+8.1%</span>
+                    </div>
+
+                    <!-- Orders -->
+                    <div class="bg-white border rounded-lg p-4 shadow-sm">
+                        <p class="text-sm text-gray-500 font-medium">Orders</p>
+                        <h2 class="text-2xl font-bold text-text-primary">1,452</h2>
+                        <span
+                            class="inline-block mt-2 text-xs font-semibold text-blue-600 bg-blue-100 px-2 py-1 rounded-full">+3.6%</span>
+
+                    </div>
+
+                    <!-- Average Order Value -->
+                    <div class="bg-surface border rounded-lg shadow-sm p-4">
+                        <h6 class="text-sm text-gray-500 font-medium">Avg. Order Value</h6>
+                        <h4 class="text-xl font-bold text-text-primary">₦3,280</h4>
+                        <span
+                            class="inline-block mt-2 text-xs font-semibold text-primary bg-primary-50 px-2 py-1 rounded-full">+2.4%</span>
+                    </div>
+                </div>
+
+                <!-- Filter Controls -->
+                <div>
+                    <div class="flex flex-col sm:flex-row gap-4 mb-6">
+                        <select
+                            class="w-full sm:w-auto border border-border rounded px-4 py-2 text-sm text-text-primary bg-white focus:outline-none">
+                            <option>Monthly</option>
+                            <option>Weekly</option>
+                            <option>Yearly</option>
+                        </select>
+                        <select
+                            class="w-full sm:w-auto border border-border rounded px-4 py-2 text-sm text-text-primary bg-white focus:outline-none">
+                            <option>March 2024</option>
+                            <option>February 2024</option>
+                            <option>January 2024</option>
+                        </select>
+                    </div>
+
+                    <!-- Line Chart Placeholder -->
+                    <div class="bg-white border border-gray-200 rounded-lg p-4 shadow-sm mb-6">
+                        <canvas id="financialLineChart" class="w-full h-64"></canvas>
+                    </div>
+                </div>
+
+                <!-- Revenue by Category Card -->
+                <!-- <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-4 mt-6"> -->
+                <!-- <div class="grid grid-cols-1 md:grid-cols-2 gap-4"> -->
+                <div class="mt-4">
+                    <div class="bg-white border rounded-lg p-4 shadow-sm">
+                        <p class="text-sm text-gray-500 font-medium mb-2">Revenue by Category</p>
+                        <!-- <canvas id="revenueChart" class="w-full max-w-xs mx-auto" width="30" height="30"></canvas> -->
+                        <canvas id="revenueChart" class="w-50 h-52 mx-auto"></canvas>
+                    </div>
+                </div>
+
+                <!-- Orders -->
+                <!-- <div class="bg-white border rounded-lg p-4 shadow-sm mt-4">
+                        <p class="text-sm text-gray-500 font-medium">Orders</p>
+                        <h2 class="text-2xl font-bold text-text-primary">1,452</h2>
+                        <span class="text-blue-600 text-sm font-semibold">+3.6%</span>
+                    </div> -->
+
+                <!-- </div> -->
+
+            </section>
+
+            <section class="content-section p-4 sm:p-6 hidden" id="finance">
+                <!-- KPI Grid Section -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 mb-6">
+                    <!-- Total Revenue -->
+                    <div class="bg-white border rounded-lg p-4 shadow-sm">
+                    <p class="text-sm text-gray-500 font-medium">Total Revenue</p>
+                    <h2 class="text-2xl font-bold text-text-primary">₦1,203,456</h2>
+                    <span class="inline-block mt-2 text-xs font-semibold text-green-700 bg-green-100 px-2 py-1 rounded-full">+12.5%</span>
+                    </div>
+
+                    <!-- Expenses -->
+                    <div class="bg-surface border rounded-lg shadow-sm p-4">
+                    <h6 class="text-sm text-gray-500 font-medium">Expenses</h6>
+                    <h4 class="text-xl font-bold text-text-primary">₦643,210</h4>
+                    <span class="inline-block mt-2 text-xs font-semibold text-red-700 bg-red-100 px-2 py-1 rounded-full">-4.3%</span>
+                    </div>
+
+                    <!-- Net Profit -->
+                    <div class="bg-white border rounded-lg p-4 shadow-sm">
+                    <p class="text-sm text-gray-500 font-medium">Net Profit</p>
+                    <h2 class="text-2xl font-bold text-text-primary">₦560,246</h2>
+                    <span class="inline-block mt-2 text-xs font-semibold text-green-700 bg-green-100 px-2 py-1 rounded-full">+8.1%</span>
+                    </div>
+
+                    <!-- Orders -->
+                    <div class="bg-white border rounded-lg p-4 shadow-sm">
+                    <p class="text-sm text-gray-500 font-medium">Orders</p>
+                    <h2 class="text-2xl font-bold text-text-primary">1,452</h2>
+                    <span class="inline-block mt-2 text-xs font-semibold text-blue-600 bg-blue-100 px-2 py-1 rounded-full">+3.6%</span>
+                    </div>
+
+                    <!-- Average Order Value -->
+                    <div class="bg-surface rounded-lg shadow-elevation p-4 sm:p-5 h-full">
+                    <h6 class="text-sm text-gray-500 font-medium">Avg. Order Value</h6>
+                    <h4 class="text-xl font-bold text-text-primary">₦3,280</h4>
+                    <span class="inline-block mt-2 text-xs font-semibold text-primary bg-primary-50 px-2 py-1 rounded-full">+2.4%</span>
+                    </div>
+                </div>
+
+                <!-- Filter Controls -->
+                <div class="flex flex-col sm:flex-row gap-4 mb-6">
+                    <select class="w-full sm:w-auto border border-border rounded px-4 py-2 text-sm text-text-primary bg-white focus:outline-none">
+                    <option>Monthly</option>
+                    <option>Weekly</option>
+                    <option>Yearly</option>
+                    </select>
+                    <select class="w-full sm:w-auto border border-border rounded px-4 py-2 text-sm text-text-primary bg-white focus:outline-none">
+                    <option>March 2024</option>
+                    <option>February 2024</option>
+                    <option>January 2024</option>
+                    </select>
+                </div>
+
+                <!-- Line Chart Placeholder -->
+                <div class="bg-white border border-gray-200 rounded-lg p-4 shadow-sm mb-6">
+                    <div class="w-full overflow-auto">
+                    <canvas id="financialLineChart" class="w-full min-w-[400px] h-64"></canvas>
+                    </div>
+                </div>
+
+                <!-- Revenue by Category Chart -->
+                <div class="mt-4">
+                    <div class="bg-white border rounded-lg p-4 shadow-sm">
+                    <p class="text-sm text-gray-500 font-medium mb-2">Revenue by Category</p>
+                    <div class="flex justify-center">
+                        <canvas id="revenueChart" class="w-50 h-52 mx-auto"></canvas>
+                    </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ================= Platform Analytics Section ================= -->
+            <section class="content-section p-4 sm:p-6 hidden" id="analytics">
+                <div class="bg-surface rounded-xl shadow-soft border border-border p-4 sm:p-6">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between mb-8 sm:mb-12 lg:mb-24">
+                    <h3 class="text-lg font-semibold text-text-primary mb-2 sm:mb-0">Platform Analytics</h3>
+                    <div class="flex items-center gap-2">
+                        <select
+                        class="px-3 py-2 border border-border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                            <option value="">Last 7 days</option>
+                            <option value="">Last 30 days</option>
+                            <option value="">Last 3 months</option>
+                        </select>
+                    </div>
+                    </div>
+
+                    <!-- Bar Chart -->
+                    <div class="h-64 flex items-end justify-between gap-1 sm:gap-2" id="revenue-chart">
+                        <div class="flex-1 bg-[#FFE0B2] rounded-t-lg" style="height: 45%"></div>
+                        <div class="flex-1 bg-[#FBC02D] rounded-t-lg" style="height: 60%"></div>
+                        <div class="flex-1 bg-[#FFA000] rounded-t-lg" style="height: 35%"></div>
+                        <div class="flex-1 bg-[#FB8C00] rounded-t-lg" style="height: 80%"></div>
+                        <div class="flex-1 bg-[#F57C00] rounded-t-lg" style="height: 90%"></div>
+                        <div class="flex-1 bg-[#E64A19] rounded-t-lg" style="height: 70%"></div>
+                        <div class="flex-1 bg-primary rounded-t-lg" style="height: 100%"></div>
+                    </div>
+
+                    <!-- Day Labels -->
+                    <div class="flex justify-between mt-4 text-xs text-secondary-500">
+                        <span>Mon</span>
+                        <span>Tue</span>
+                        <span>Wed</span>
+                        <span>Thu</span>
+                        <span>Fri</span>
+                        <span>Sat</span>
+                        <span>Sun</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ================== Content Management Overview ================ -->
+            <section class="content-section p-6 hidden" id="content">
+                <div class="flex-1 bg-surface rounded-lg shadow-elevation p-6">
+                    <div
+                        class="flex flex-col flex-md-row md:flex-row justify-between items-start md:items-center gap-4 mb-6">
+                        <h3 class="text-xl font-semibold">Content Management</h3>
+                        <div class="flex flex-row flex-wrap gap-2">
+                            <button class="flex items-center bg-primary text-white font-medium px-4 py-2 rounded hover:bg-orange-600 transition">
+                                <svg class="w-7 h-7 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd" />
+                                </svg>
+                                Add New Content
+                            </button>
+
+                            <!-- <button class="border border-gray-400 text-gray-700 px-4 py-2 rounded hover:bg-gray-50 micro-interaction">🗑️ Bulk Delete</button> -->
+                            <button
+                                class="border border-gray-400 text-gray-700 px-4 py-2 rounded hover:bg-gray-50 transition">
+                                Edit Page
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Stats Cards -->
+                    <div class="kpis grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                        <div class="bg-blue-500 text-white rounded-lg p-4 shadow">
+                            <h6 class="uppercase text-xs mb-1">Total Pages</h6>
+                            <h3 class="text-2xl font-bold">12</h3>
+                        </div>
+                        <div class="bg-green-500 text-white rounded-lg p-4 shadow">
+                            <h6 class="uppercase text-xs mb-1">Published</h6>
+                            <h3 class="text-2xl font-bold">9</h3>
+                        </div>
+                        <div class="bg-yellow-500 text-white rounded-lg p-4 shadow">
+                            <h6 class="uppercase text-xs mb-1">Drafts</h6>
+                            <h3 class="text-2xl font-bold">3</h3>
+                        </div>
+                        <div class="bg-secondary bg-yellow-400 text-white rounded-lg p-4">
+                            <h6 class="uppercase text-xs mb-1">Last Updated</h6>
+                            <h3 class="text-2xl font-bold">3</h3>
+                        </div>
+                    </div>
+
+                    <!-- Content Table -->
+                    <div class="bg-white rounded-lg shadow overflow-x-auto mb-8">
+                        <table class="min-w-full">
+                            <thead class="bg-gray-100 text-left">
+                                <tr>
+                                    <th class="px-4 py-3 font-medium text-gray-600">Title</th>
+                                    <th class="px-4 py-3 font-medium text-gray-600">Type</th>
+                                    <th class="px-4 py-3 font-medium text-gray-600">Status</th>
+                                    <th class="px-4 py-3 font-medium text-gray-600">Last Updated</th>
+                                    <th class="px-4 py-3 font-medium text-gray-600">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="border-t">
+                                    <td class="px-4 py-3">Welcome Banner</td>
+                                    <td class="px-4 py-3">Banner</td>
+                                    <td class="px-4 py-3"><span
+                                            class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full">Published</span>
+                                    </td>
+                                    <td class="px-4 py-3">July 24, 2025</td>
+                                    <td class="px-4 py-3 space-x-2">
+                                        <div class="flex flex-row gap-3 sm:flex-row sm:items-center sm:gap-3 text-sm text-text-secondary">
+                                            <button
+                                                class="bg-blue-500 text-white px-3 py-1 rounded text-xs hover:bg-blue-600">Edit</button>
+                                            <button
+                                                class="bg-error text-white px-3 py-1 rounded text-xs hover:bg-red-600">Delete</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr class="border-t">
+                                    <td class="px-4 py-3">Homepage Text</td>
+                                    <td class="px-4 py-3">Text Block</td>
+                                    <td class="px-4 py-3"><span
+                                            class="bg-yellow-200 text-yellow-900 text-xs px-2 py-1 rounded-full">Draft</span>
+                                    </td>
+                                    <td class="px-4 py-3">July 22, 2025</td>
+                                    <td class="px-4 py-3 space-x-2">
+                                        <div class="flex flex-row gap-3 sm:flex-row sm:items-center sm:gap-3 text-sm text-text-secondary">
+                                            <button
+                                            class="bg-blue-500 text-white px-3 py-1 rounded text-xs hover:bg-blue-600">Edit</button>
+                                            <button
+                                                class="bg-green-500 text-white px-3 py-1 rounded text-xs hover:bg-green-700">Publish</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr class="border-t">
+                                    <td class="px-4 py-3">Promo Slider Image</td>
+                                    <td class="px-4 py-3">Image</td>
+                                    <td class="px-4 py-3">
+                                        <span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full">Published</span>
+                                    </td>
+                                    <td class="px-4 py-3">July 20, 2025</td>
+                                    <td class="px-4 py-3 space-x-2">
+                                        <div class="flex flex-row gap-3 sm:flex-row sm:items-center sm:gap-3 text-sm text-text-secondary">
+                                            <button
+                                            class="bg-blue-500 text-white px-3 py-1 rounded text-xs hover:bg-blue-600">Edit</button>
+                                            <button
+                                                class="bg-error text-white px-3 py-1 rounded text-xs hover:bg-red-600">Remove</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr class="border-t">
+                                    <td class="px-4 py-3">About Us Section</td>
+                                    <td class="px-4 py-3">HTML Block</td>
+                                    <td class="px-4 py-3"><span
+                                            class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full">Published</span>
+                                    </td>
+                                    <td class="px-4 py-3">July 18, 2025</td>
+                                    <td class="px-4 py-3 space-x-2">
+                                        <div class="flex flex-row gap-3 sm:flex-row sm:items-center sm:gap-3 text-sm text-text-secondary">
+                                            <button
+                                                class="bg-blue-500 text-white px-3 py-1 rounded text-xs hover:bg-blue-600">Edit</button>
+                                            <button
+                                                class="bg-yellow-500 text-white px-3 py-1 rounded text-xs hover:bg-yellow-600">Unpublish</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Summary Table -->
+                    <div class="bg-white rounded-lg shadow overflow-x-auto">
+                        <table class="min-w-full">
+                            <thead class="bg-gray-100 text-left">
+                                <tr>
+                                    <th class="px-4 py-3 font-medium text-gray-600">Title</th>
+                                    <th class="px-4 py-3 font-medium text-gray-600">Type</th>
+                                    <th class="px-4 py-3 font-medium text-gray-600">Last Updated</th>
+                                    <th class="px-4 py-3 font-medium text-gray-600">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="border-t">
+                                    <td class="px-4 py-3">Welcome Banner</td>
+                                    <td class="px-4 py-3">Text Block</td>
+                                    <td class="px-4 py-3">July 24, 2025</td>
+                                    <td class="px-4 py-3 space-x-2">
+                                        <div class="flex flex-row gap-3 sm:flex-row sm:items-center sm:gap-3 text-sm text-text-secondary">
+                                            <button class="text-blue-600 hover:underline text-sm">Edit</button>
+                                            <button class="text-red-500 hover:underline text-sm">Delete</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ================== Sytem Settings Overview ================ -->
+            <section class="content-section p-4 sm:p-6 hidden" id="system">
+                <div class="space-y-6">
+                    <!-- Main Grid Layout -->
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    
+                        <!-- ===== Profile Settings ===== -->
+                        <div class="lg:col-span-2 bg-surface rounded-lg shadow-elevation p-4 sm:p-6">
+                            <h3 class="text-lg font-semibold text-text-primary mb-4">Profile Settings</h3>
+                            <form class="space-y-4">
+                                <div>
+                                    <label class="text-sm font-medium text-text-secondary block mb-1">Username</label>
+                                    <input type="text" class="form-input w-full rounded border border-border px-3 py-2" value="admin">
+                                </div>
+                                <div>
+                                    <label class="text-sm font-medium text-text-secondary block mb-1">Email</label>
+                                    <input type="email" class="form-input w-full rounded border border-border px-3 py-2" value="admin@example.com">
+                                </div>
+                                <div>
+                                    <label class="text-sm font-medium text-text-secondary block mb-1">Language</label>
+                                    <select class="form-select w-full rounded border border-border px-3 py-2">
+                                        <option value="">English</option>
+                                        <option value="">French</option>
+                                        <option value="">Spanish</option>
+                                    </select>
+                                </div>
+                                <div class="text-right">
+                                    <button type="submit" class="bg-primary text-white px-4 py-2 rounded hover:bg-primary-600 micro-interaction">
+                                        Save Changes
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+
+                        <!-- ===== Right Side: Security & Notifications ===== -->
+                        <div class="flex flex-col space-y-6">
+                            
+                            <!-- ============= Security ============= -->
+                            <div class="bg-surface rounded-lg shadow-elevation p-4 sm:p-6">
+                                <h4 class="text-md font-semibold text-text-primary mb-4">Security</h4>
+                                <div class="flex flex-col sm:flex-row sm:space-x-4 space-y-2 sm:space-y-0">
+                                    <button class="bg-white border border-border rounded px-4 py-2 text-sm hover:bg-gray-50 micro-interaction">
+                                    Change Password
+                                    </button>
+                                    <button class="bg-white border border-border rounded px-4 py-2 text-sm hover:bg-gray-50 micro-interaction">
+                                    Enable 2FA
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- ========= Notifications =========== -->
+                            <div class="bg-surface rounded-lg shadow-elevation p-4 sm:p-6">
+                                <h4 class="text-md font-semibold text-text-primary mb-4">Notifications</h4>
+                                <div class="space-y-4">
+                                    <!-- ====== Email Notification ======= -->
+                                    <div class="flex items-center justify-between flex-wrap gap-4">
+                                        <span class="text-sm text-text-primary">Email Notifications</span>
+                                        <label class="relative inline-flex items-center cursor-pointer w-11 h-6">
+                                            <input type="checkbox" class="sr-only peer" checked />
+                                            <div class="w-full h-full bg-gray-200 rounded-full peer-checked:bg-primary transition-colors duration-300"></div>
+                                            <div class="absolute top-[2px] left-[2px] w-5 h-5 bg-white rounded-full transition-transform duration-300 peer-checked:translate-x-5"></div>
+                                        </label>
+                                    </div>
+
+                                    <!-- ============ Push Notification =========== -->
+                                    <div class="flex items-center justify-between flex-wrap gap-4">
+                                        <span class="text-sm text-text-primary">Push Notifications</span>
+                                        <label class="relative inline-flex items-center cursor-pointer w-11 h-6">
+                                            <input type="checkbox" class="sr-only peer" />
+                                            <div class="w-full h-full bg-gray-200 rounded-full peer-checked:bg-primary transition-colors duration-300"></div>
+                                            <div class="absolute top-[2px] left-[2px] w-5 h-5 bg-white rounded-full transition-transform duration-300 peer-checked:translate-x-5"></div>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- ========== Danger Zone ======== -->
+                            <div class="bg-surface rounded-lg shadow-elevation p-4 sm:p-6">
+                                <h4 class="text-md font-semibold text-text-primary mb-4">Danger Zone</h4>
+                                <button class="bg-error text-white px-4 py-2 rounded hover:bg-red-700 micro-interaction">
+                                    Delete Account
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <!-- =============== Navigation LinksNavigation Links ================= -->
+    <nav id="mobile-nav" class="fixed bottom-0 left-0 right-0 bg-surface border-t border-border p-4 lg:hidden">
+        <div class="flex justify-around">
+            <a href="#dashboard" class="flex flex-col items-center space-y-1 text-primary">
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                    <path
+                        d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z" />
+                </svg>
+                <span class="text-xs">Dashboard</span>
+            </a>
+            <a href="#users" class="flex flex-col items-center space-y-1 text-text-secondary relative">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z" />
+                </svg>
+                <span class="text-xs">Users</span>
+                <div
+                    class="absolute -top-1 -right-1 w-4 h-4 bg-primary text-white text-xs rounded-full flex items-center justify-center">
+                    12</div>
+            </a>
+            <a href="#restaurants" class="flex flex-col items-center space-y-1 text-text-secondary relative">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                </svg>
+                <span class="text-xs">Restaurants</span>
+                <div
+                    class="absolute -top-1 -right-1 w-4 h-4 bg-warning text-white text-xs rounded-full flex items-center justify-center">
+                    3</div>
+            </a>
+            <a href="#analytics" class="flex flex-col items-center space-y-1 text-text-secondary">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                </svg>
+                <span class="text-xs">Analytics</span>
+            </a>
+        </div>
+    </nav>
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script id="dhws-dataInjector" src="../public/dhws-data-injector.js"></script>
+
+    <!-- ================ DASHBOARD JS =============== -->
+    <script src="../JS/dashboard.js"></script>
+
+    <!-- ============= Bootstrap JS bundle =========== -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- ============== Rocket script ============ -->
+    <script type="module" src="https://static.rocket.new/rocket-web.js?_cfg=https%3A%2F%2Ffoodhub6417back.builtwithrocket.new&_v=0.1.2"></script>
+</body>
+
+</html>

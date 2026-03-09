@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Shopping Cart & Checkout - FoodHub</title>
+    <!-- ===================== Tailwind CSS ==================== -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- =========================== CSS ========================== -->
+    <link rel="stylesheet" href="../css/main.css" />
+    <!-- <link rel="stylesheet" href="../css/merged-styles.css" /> -->
+
+<script type="module" src="https://static.rocket.new/rocket-web.js?_cfg=https%3A%2F%2Ffoodhub6417back.builtwithrocket.new&_v=0.1.2"></script>
+</head>
+<body class="bg-surface min-h-screen">
+    <!-- Header -->
+    <header class="bg-background shadow-elevation sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+            
+                <!-- Left: Logo & Secure Text -->
+                <div class="flex items-center gap-2 sm:gap-4">
+                    <!-- Back button -->
+                    <a href="../Products.html" class="p-2 rounded-lg hover:bg-gray-100 micro-interaction">
+                        <svg class="w-6 h-6 text-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+                        </svg>
+                    </a>
+
+                    <!-- Branding -->
+                    <div>
+                        <div class="text-lg font-semibold text-secondary leading-tight">
+                            Karry<span class="text-primary">Go</span>
+                        </div>
+                        <div class="flex items-center space-x-1 text-xs text-text-secondary">
+                            <svg class="w-4 h-4 text-red-500" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"/>
+                            </svg>
+                            <span>Secure Checkout</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- History Button (only on small screens) -->
+                <button class="block md:hidden p-2 rounded-lg text-text-secondary/40 hover:bg-gray-50 micro-interaction" data-bs-toggle="offcanvas" data-bs-target="#orderHistory">
+                    <!-- <i class="history-btn uil-history text-2xl"></i> -->
+                    <i class="history-btn uil-file-check-alt text-2xl"></i>
+                </button>
+
+                <!-- Progress Steps (only on md and above) -->
+                <div class="hidden md:flex items-center space-x-2">
+                    <div class="flex items-center">
+                        <div class="w-8 h-8 bg-accent text-white rounded-full flex items-center justify-center text-sm font-medium">
+                            1
+                        </div>
+                        <span class="ml-2 text-sm font-medium text-text-accent">Cart</span>
+                    </div>
+                    <div class="w-8 h-0.5 bg-border"></div>
+                    <div class="flex items-center">
+                        <div class="w-8 h-8 bg-border text-text-secondary rounded-full flex items-center justify-center text-sm font-medium">
+                            2
+                        </div>
+                        <span class="ml-2 text-sm text-text-secondary">Payment</span>
+                    </div>
+                    <div class="w-8 h-0.5 bg-border"></div>
+                    <div class="flex items-center">
+                        <div class="w-8 h-8 bg-border text-text-secondary rounded-full flex items-center justify-center text-sm font-medium">
+                            3
+                        </div>
+                        <span class="ml-2 text-sm text-text-secondary">Confirmation</span>
+                    </div>
+
+                    <!-- History Trigger Button -->
+                    <button id="openOrderDrawerBtn"
+                        class="px-3 py-2 rounded-lg micro-interaction text-sm font-medium text-text-secondary/40 hover:bg-gray-50 focus:outline-none transition">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M16.5 2h-9A2.5 2.5 0 005 4.5v15A2.5 2.5 0 007.5 22h9a2.5 2.5 0 002.5-2.5v-15A2.5 2.5 0 0016.5 2zM9 11.5l2 2 4-4M8 6h8M8 9h8" />
+                        </svg>
+                    </button>
+
+                </div>
+
+            </div>
+        </div>
+    </header>
+
+
+    <!-- Main Content -->
+    <main class="main-content max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 pb-24 md:pb-6">
+
+        <div>
+            <!-- Order History Drawer -->
+            <div id="orderHistory"
+                class="fixed top-0 right-0 h-full w-full max-w-md bg-white shadow-lg z-[9999] transform translate-x-full transition-transform duration-300 ease-in-out overflow-y-auto">
+                <div class="flex items-center justify-between px-4 py-4 border-b">
+                    <h2 class="text-lg font-semibold text-gray-800">Order History</h2>
+                    <button id="closeOrderHistory"
+                        class="text-red-500 hover:text-red-700 text-xl font-bold focus:outline-none">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                </div>
+
+                <!-- Drawer Body -->
+                <div class="p-4 space-y-4">
+                    <!-- Order Card 1 -->
+                    <div class="bg-white rounded-lg shadow p-4 flex gap-4 items-start">
+                        <img src="https://cdn-icons-png.flaticon.com/512/1250/1250620.png" alt="Order Icon"
+                            class="w-12 h-12 rounded" />
+                        <div class="flex-1">
+                            <h6 class="font-medium text-gray-800">Mario's Italian Kitchen</h6>
+                            <p class="text-sm text-gray-500">Caesar Salad, Margherita Pizza</p>
+                            <p class="text-xs text-gray-400">April 21, 2024</p>
+                        </div>
+                        <div class="text-right">
+                            <strong class="text-gray-800">₦20.70</strong><br>
+                            <a href="#" class="text-sm text-primary hover:underline">View Order</a>
+                        </div>
+                    </div>
+
+                    <!-- Order Card 2 -->
+                    <div class="bg-white rounded-lg shadow p-4 flex gap-4 items-start">
+                        <img src="https://cdn-icons-png.flaticon.com/512/1250/1250620.png" alt="Order Icon"
+                            class="w-12 h-12 rounded" />
+                        <div class="flex-1">
+                            <h6 class="font-medium text-gray-800">Mario's Italian Kitchen</h6>
+                            <p class="text-sm text-gray-500">Caesar Salad, Margherita Pizza</p>
+                            <p class="text-xs text-gray-400">April 21, 2024</p>
+                        </div>
+                        <div class="text-right">
+                            <strong class="text-gray-800">₦20.70</strong><br>
+                            <a href="#" class="text-sm text-primary hover:underline">View Order</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- Order Summary -->
+            <div class="order-summary lg:col-span-1">
+                <div class="bg-background rounded-lg shadow-elevation p-6 sticky top-24">
+                    <h3 class="text-lg font-semibold text-text-primary mb-6">Order Summary</h3>
+                    
+                    <!-- Pricing Breakdown -->
+                    <div class="space-y-3 mb-6">
+                        <div class="flex justify-between text-sm">
+                            <span class="text-text-secondary">Subtotal (3 items)</span>
+                            <span class="text-text-primary">&#8358; 58.97</span>
+                        </div>
+                        <div class="flex justify-between text-sm">
+                            <span class="text-text-secondary">Delivery Fee</span>
+                            <span class="text-accent">Free</span>
+                        </div>
+                        <div class="flex justify-between text-sm">
+                            <span class="text-text-secondary">Service Fee</span>
+                            <span class="text-text-primary">&#8358; 2.99</span>
+                        </div>
+                        <div class="flex justify-between text-sm">
+                            <span class="text-text-secondary">Tax</span>
+                            <span class="text-text-primary">&#8358; 4.92</span>
+                        </div>
+                        <div class="flex justify-between text-sm text-accent">
+                            <span>Promo Discount</span>
+                            <span>-&#8358; 5.00</span>
+                        </div>
+                        <div class="border-t border-border pt-3">
+                            <div class="flex justify-between font-semibold text-lg">
+                                <span class="text-text-primary">Total</span>
+                                <span class="text-text-primary">&#8358; 60.88</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Promo Code -->
+                    <div class="mb-6">
+                        <div class="flex flex-col sm:flex-row sm:space-x-2 space-y-2 sm:space-y-0">
+                            <input type="text" placeholder="Enter promo code" class="flex-1 px-3 py-2 border rounded-lg text-sm focus:outline-none focus:ring-0" />
+
+                            <button class="px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary-600 micro-interaction text-sm font-medium">
+                                Apply
+                            </button>
+                        </div>
+
+                        <div class="mt-2 text-xs text-accent">
+                            SAVE5 applied – &#8358;5.00 discount
+                        </div>
+                    </div>
+
+
+                    <!-- Payment Methods -->
+                    <div class="mb-6">
+                        <h4 class="font-medium text-text-primary mb-3">Payment Method</h4>
+                        <div class="space-y-3">
+                            <div class="border border-primary rounded-lg p-3 bg-primary-50">
+                                <div class="flex items-center space-x-3">
+                                    <label class="flex items-center space-x-2">
+                                        <input type="radio" name="paymentMethod" class="accent-orange-500 h-5 w-5" checked />
+                                    </label>
+
+                                    <div class="flex items-center space-x-2">
+                                        <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?q=80&w=2940&auto=format&fit=crop" alt="Credit Card" class="w-8 h-5 object-cover rounded" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1584824486509-112e4181ff6b?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'; this.onerror=null;" />
+                                        <span class="text-sm font-medium text-text-primary">•••• 4242</span>
+        
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="border border-border rounded-lg p-3 hover:border-primary micro-interaction cursor-pointer">
+                                <div class="flex items-center space-x-3">
+                                    <label class="flex items-center space-x-2">
+                                        <input type="radio" name="paymentMethod" class="accent-orange-500 h-5 w-5"  required />
+                                    </label>
+                                    <div class="flex items-center space-x-2">
+                                        <svg class="w-6 h-6 text-primary" fill="currentColor" viewBox="0 0 24 24">
+                                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                                        </svg>
+                                        <span class="text-sm font-medium text-text-primary">PayPal</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="border border-border rounded-lg p-3 hover:border-primary micro-interaction cursor-pointer">
+                                <div class="flex items-center space-x-3">
+                                    <label class="flex items-center space-x-2">
+                                        <input type="radio" name="paymentMethod" class="accent-orange-500 h-5 w-5" required />
+                                    </label>                                    
+                                    <div class="flex items-center space-x-2">
+                                        <svg class="w-6 h-6 text-accent" fill="currentColor" viewBox="0 0 24 24">
+                                            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                                        </svg>
+                                        <span class="text-sm font-medium text-text-primary">Cash on Delivery</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="w-full mt-3 text-primary hover:text-primary-600 text-sm font-medium micro-interaction">
+                            + Add New Payment Method
+                        </button>
+                    </div>
+
+                    <!-- Place Order Button -->
+                    <button onclick="window.location.href='order_confirmation_tracking.html'" class="place-order-btn w-full bg-primary hidden lg:inline-block text-white py-4 rounded-lg hover:bg-primary-600 micro-interaction font-semibold text-lg mb-4">
+                        Place Order • &#8358;60.88
+                    </button>
+                    
+                    
+                    <div class="text-center text-xs text-text-secondary">
+                        <div class="mb-2">Estimated delivery: 35-45 minutes</div>
+                        <div>By placing this order, you agree to our Terms of Service</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Mobile Progress Indicator -->
+    <div class="nav-botton md:hidden fixed bottom-0 left-0 right-0 bg-surface border-t border-border p-4">
+        <div class="flex items-center justify-center space-x-4 mb-4">
+            <div class="flex items-center">
+                <div class="w-6 h-6 bg-accent text-white rounded-full flex items-center justify-center text-xs font-medium">1</div>
+                <span class="ml-2 text-xs font-medium text-accent">Cart</span>
+            </div>
+            <div class="w-6 h-0.5 bg-border"></div>
+            <div class="flex items-center">
+                <div class="w-6 h-6 bg-border text-text-secondary rounded-full flex items-center justify-center text-xs font-medium">2</div>
+                <span class="ml-2 text-xs text-text-secondary">Payment</span>
+            </div>
+            <div class="w-6 h-0.5 bg-border"></div>
+            <div class="flex items-center">
+                <div class="w-6 h-6 bg-border text-text-secondary rounded-full flex items-center justify-center text-xs font-medium">3</div>
+                <span class="ml-2 text-xs text-text-secondary">Done</span>
+            </div>
+        </div>
+        <a href="order_confirmation_tracking.html" class="block w-full bg-primary text-white py-3 rounded-lg hover:bg-primary-600 micro-interaction font-semibold text-center">
+            Place Order • &#8358;60.88
+        </a>
+    </div>
+
+    <!-- Navigation Links -->
+    <nav class="hidden">
+        <a href="restaurant_menu_ordering.html">Menu</a>
+        <a href="shopping_cart_checkout.html">Cart</a>
+        <a href="real_time_order_tracking.html">Track Order</a>
+    </nav>
+<script id="dhws-dataInjector" src="../public/dhws-data-injector.js"></script>
+
+<script src="../JS/cart.js"></script>
+
+<!-- Tailwind (must come after Bootstrap if used together) -->
+<!-- <script src="https://cdn.tailwindcss.com"></script> -->
+</body>
+</html>

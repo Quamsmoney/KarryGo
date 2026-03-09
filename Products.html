@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=1, initial-scale=1.0">
+    <!-- =========================== UNICONS ================== -->
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+    
+    <!-- =========================== FLATICON SOLID ================== -->
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.6.0/uicons-solid-rounded/css/uicons-solid-rounded.css'>
+
+    <!-- =========================== FLATICON ================== -->
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.6.0/uicons-regular-rounded/css/uicons-regular-rounded.css'>
+
+    <!-- ======================= SWIPER CSS ====================== -->
+    <link rel="stylesheet" href="css/swiper-bundle.min.css">
+
+    <!-- =========================== CSS ========================== -->
+    <link rel="stylesheet" href="css/style.css">
+
+    <!-- ======================= SITE IMAGE ======================== -->
+    <link rel="shortcut icon" href="image/Zim Logo.png" type="image/x-icon">
+
+    <!-- ======================= ROCKET - WEB ======================== -->
+    <script type="module" src="https://static.rocket.new/rocket-web.js?_cfg=https%3A%2F%2Ffooddash6822back.builtwithrocket.new&_v=0.1.2"></script>
+
+    <title>restaurant_menu_ordering</title>
+</head>
+<body>
+    <header class="header" id="">
+        <nav class="nav container">
+            <div class="nav-section" id="nav_section">
+                <h1 class="logo">Karry<span>Go</span></h1>
+
+                <!-- Current location -->
+                <ul class="location-container">
+                    <li class="current-location">
+                        <div class="current-location-menu">
+                            <i class="uil uil-map-marker location-icon"></i>
+                            <!-- <i class="location-icon"><ion-icon name="location" class=""></ion-icon></i> -->
+                        </div>
+
+                        <ul class="dropdown">
+                            <li>
+                                <h4 class="dropdown_head">Delivery Address</h4>
+                                <i class="uil uil-times loction-close-icon"></i>
+
+                                <div class="search-box">
+                                    <i class="uil uil-map-marker gps-icon"></i>
+                                    <input type="text" placeholder="Enter address">
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            
+                <div class="search--box">
+                    <i class="uil uil-search"></i>
+                    <input type="text" placeholder="Search Karry...">
+                </div>
+
+            <div class="header-icons" id="header_icons">
+                <div class="nav--icons">
+                    <div class="modal_content">
+                        <!-- <a href="log-in.html"><i class="uil uil-user user-icon modal_button"></i></a> -->
+                        <a href="./pages/user_authentication_portal.html">
+                            <i class="user-icon"><ion-icon name="person"></ion-icon></i>
+                        </a>
+
+                        <!-- modal -->
+                        <!-- <div class="overlay_modal">
+                            <div class="overlay_modal-content">
+                                <h4 class="overlay_title">Sign In</h4>
+                                <span class="section_subtitle">Sign in to continue</span>
+                                <i class="uil uil-times overlay_modal-close"></i>
+
+                                <form method="POST" class="user-services">
+                                    <div class="user_content">
+                                        <label for="" class="user_label">Phone Number</label>
+                                        <input type="text" class="user_input">
+                                    </div>
+
+                                    <div>
+                                        <button type="submit" class="checkout-btn contact_button">
+                                            Sign In
+                                        </button>
+                                    </div>
+
+                                    <div class="signup_info-section display--flex">
+                                        <div>
+                                            <div class="signup_info"> 
+                                                <a href="#" class="login_color">Forget Password?</a>
+                                            </div>
+                    
+                                            <div class="singup_question">
+                                                <p>New to Karry?</p>
+                    
+                                                <a href="#" class="button login_button">Sign Up</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div> -->
+                    </div>
+                    
+                    <div class="cart-icon" id="cartIcon">
+                        <i class="uil uil-shopping-cart shopping-icon"></i>
+                        <!-- <i class="shopping-icon"><ion-icon name="cart"></ion-icon></i> -->
+                        <!-- <svg class="shopping-icon w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-1.5 6M7 13l-1.5 6m0 0h9m-9 0V19a2 2 0 002 2h7a2 2 0 002-2v-4"/>
+                        </svg> -->
+
+                        <span>0</span>
+                    </div>
+                </div>
+
+                <div class="nav_btns">
+                    <!-- Theme Change button -->
+                    <i class="uil uil-moon change-theme" id="theme-button"></i>
+
+                    <!-- <div class="nav_toggle" id="nav-toggle">
+                        <i class="uil uil-apps"></i>
+                    </div> -->
+                </div>
+            </div>
+        </nav>
+
+        <!-- small screen search-box -->
+        <div class="nav-search container" id="nav_search">
+            <div class="search-box">
+                <i class="uil uil-search"></i>
+                <input type="text" placeholder="Search Karry...">
+            </div>
+        </div>
+    </header>
+
+    <!-- ================= MAIN ==================== -->
+    <main class="main main-container container">
+        <!-- Cover section -->
+        <!-- <section class="cover" alt="Quick Bite">
+            <div class="cover--overlay">
+                <h1>Quick Bite</h1>
+                <span class="slogan">Where Taste Take the Fast Lane</span>
+            </div>
+
+            <div class="cover--overlay">
+                <h1>Speedy Feast</h1>
+                <span class="slogan">Delicious Moments Delivered in Minutes</span>
+            </div>
+
+            <div class="cover--overlay">
+                <h1>BiteRush</h1>
+                <span class="slogan">Fuel Your Craving on the Go</span>
+            </div>
+
+            <div class="cover--overlay">
+                <h1>Snack Dash</h1>
+                <span class="slogan">Fast, Fresh & Full of Flavor</span>
+            </div> -->
+        </section>
+
+        <section class="hero-6">
+            <div class="swiper hero-swiper">
+                <div class="swiper-wrapper">
+                
+                    <!-- ===== Slide 1 ===== -->
+                    <div class="swiper-slide hero-slide hero-bg-1">
+                        <div class="bg-overlay"></div>
+                        <div class="hero-content">
+                            <h1>Quick Bite</h1>
+                            <p>Where Taste Take the Fast Lane</p>
+                        </div>
+                    </div>
+                    
+                    <!-- === Slide 2 ==== -->
+                    <div class="swiper-slide hero-slide hero-bg-2">
+                        <div class="bg-overlay"></div>
+                        <div class="hero-content">
+                            <h1>Speedy Feast</h1>
+                            <p>Delicious Moments Delivered in Minutes</p>
+                        </div>
+                    </div>
+                    
+                    <!-- ==== Slide 3 ===== -->
+                    <div class="swiper-slide hero-slide hero-bg-3">
+                        <div class="bg-overlay"></div>
+                        <div class="hero-content">
+                            <h1>BiteRush</h1>
+                            <p>Fuel Your Craving on the Go</p>
+                        </div>
+                    </div>
+
+                    <!-- ==== Slide 4 ==== -->
+                    <div class="swiper-slide hero-slide hero-bg-4">
+                        <div class="bg-overlay"></div>
+                        <div class="hero-content">
+                            <h1>Snack Dash</h1>
+                            <p>Fast, Fresh & Full of Flavor</p>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Arrows -->
+                <div class="swiper-button-prev"></div>
+                <div class="swiper-button-next"></div>
+            </div>
+        </section>
+
+        <aside>
+            <h2 class="section-heading">Explore categories</h2>
+            <!-- ================== MENU ================== -->
+            <div class="menu--list">
+                <!-- menu list 1 -->
+                <div class="menu--item">
+                    <img src="image/slaad_1.png" alt="">
+                    <h5>Salad</h5>
+                </div>
+            
+                <!-- menu list 2 -->
+                <div class="menu--item">
+                    <img src="image/buger_2.png" alt="">
+                    <h5>Buger</h5>
+                </div>
+                <!-- menu list 3 -->
+                <div class="menu--item">
+                    <img src="image/French_Fries 1.png" alt="">
+                    <h5>French Fries</h5>
+                </div>
+                <!-- menu list 4 -->
+                <div class="menu--item">
+                    <img src="image/Nuggets_1.png" alt="">
+                    <h5>Nuggets</h5>
+                </div>
+                <!-- menu list 5 -->
+                <div class="menu--item">
+                    <img src="image/pizzzza.png" alt="">
+                    <h5>Pizza Slice</h5>
+                </div>
+                <!-- menu list 6 -->
+                <div class="menu--item">
+                    <img src="image/Soft_Drink.png" alt="">
+                    <h5>Soft Drink</h5>
+                </div>
+                <!-- menu list 7 -->
+                <div class="menu--item">
+                    <img src="image/Coffee_1.png" alt="">
+                    <h5>Coffee</h5>
+                </div>
+                <!-- menu list 8 -->
+                <div class="menu--item">
+                    <img src="image/Milkshake_1.png" alt="">
+                    <h5>Milkshake</h5>
+                </div>
+            </div>
+
+            <!-- ============== CARD ITEM SECTION ================== -->
+            <h2 class="section-heading">All Restaurants</h2>
+            <div class="card--list">
+                <!-- card 1 -->
+                <div class="card">
+                    <img src="image/salaad 2.png" alt="">
+                    <h4 class="card--title">Salad</h4>
+
+                    <div class="card--price">
+                        <div class="price">&#8358; 3,500</div>
+                        <del class="old_price">&#8358; 4,643</del>
+                        <!-- <i class="fa-solid fa-plus add-to-cart"></i> -->           
+                        <i class="uil uil-plus add-to-cart"></i>
+                    </div>
+                </div>
+                <!-- card 2 -->
+                <div class="card">
+                    <img src="image/buger_1.png" alt="">
+                    <h4 class="card--title">Buger</h4>
+
+                    <div class="card--price">
+                        <div class="price">&#8358; 2,500</div>
+                        <i class="uil uil-plus add-to-cart"></i>
+                    </div>
+                </div>
+                <!-- card 3 -->
+                <div class="card">
+                    <img src="image/Nuggets_2.png" alt="">
+                    <h4 class="card--title">Nuggets</h4>
+
+                    <div class="card--price">
+                        <div class="price">&#8358; 7,500</div>
+                        <i class="uil uil-plus add-to-cart"></i>
+                    </div>
+                </div>
+                <!-- card 4 -->
+                <div class="card">
+                    <img src="image/pizza.png" alt="">
+                    <h4 class="card--title">pizza</h4>
+
+                    <div class="card--price">
+                        <div class="price">&#8358; 13,500</div>
+                        <i class="uil uil-plus add-to-cart"></i>
+                    </div>
+                </div>
+                <!-- card 5 -->
+                <div class="card">
+                    <img src="image/Coffee_2.png" alt="">
+                    <h4 class="card--title">coffee</h4>
+
+                    <div class="card--price">
+                        <div class="price">&#8358; 1,000</div>
+                        <i class="uil uil-plus add-to-cart"></i>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- cart sidebar section -->
+            <div class="sidebar" id="sidebar">
+                <div class="sidebar-close">
+                    <i class="uil uil-times close-icon"></i>
+                </div>
+
+                <div class="sidebar-scroll">
+                    <div class="cart-menu">
+                        <h3 class="cart-menu-title">My Cart</h3>
+                        <div class="cart-items"></div>
+                    </div>
+
+                    <div class="cart-extra-details">
+                        <!-- Address-box -->
+                        <div class="address-box">
+                            <h3 class="address-title">Delivery Address</h3>
+                            <div class="address-list">
+                                <!-- Default Address -->
+                                <div class="address-card selected">
+                                    <div class="address-inner">
+                                        <div class="address-info">
+                                            <div class="radio-selected">
+                                                <input type="radio" name="payment" value="wallet" class="radio-dot" required checked />
+                                            </div>
+                                            <div>
+                                                <div class="address-name">Home</div>
+                                                <div class="address-text">123 Main Street, Apt 4B<br>New York, NY 10001</div>
+                                                <div class="address-note">Default address</div>
+                                            </div>
+                                        </div>
+                                        <button class="address-action">Edit</button>
+                                    </div>
+                                </div>
+
+                                <!-- Secondary Address -->
+                                <div class="address-card">
+                                    <div class="address-inner">
+                                        <div class="address-info">
+                                            <div class="radio-selected">
+                                                <input type="radio" name="payment" value="wallet" class="radio-dot" required />
+                                            </div>
+                                            <div>
+                                                <div class="address-name">Office</div>
+                                                <div class="address-text">456 Business Ave, Suite 200<br>New York, NY 10002</div>
+                                            </div>
+                                        </div>
+                                        <button class="address-action secondary">Select</button>
+                                    </div>
+                                </div>
+
+                                <!-- Add New Address -->
+                                <button class="add-address">
+                                    <div class="add-address-content">
+                                        <svg class="add-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                                        </svg>
+                                        <span>Add New Address</span>
+                                    </div>
+                                </button>
+
+                            </div>
+                        </div>
+                        
+                        <!-- Delivery Time -->
+                        <div class="delivery-time-container">
+                            <h3 class="delivery-title">Delivery Time</h3>
+                            <div class="delivery-options">
+                                
+                                <!-- Standard Delivery -->
+                                <div class="delivery-card selected">
+                                <div class="delivery-card-content">
+                                    <div>
+                                        <div class="delivery-name">Standard Delivery</div>
+                                        <div class="delivery-duration">35–45 minutes</div>
+                                    </div>
+                                    <div class="delivery-price">
+                                        <div class="price-text free">Free</div>
+                                        <div class="delivery-selected">
+                                            <input type="radio" name="payment" value="wallet" class="radio-dot" required />
+                                        </div>
+                                    </div>
+                                </div>
+                                </div>
+
+                                <!-- Express Delivery -->
+                                <div class="delivery-card hoverable">
+                                <div class="delivery-card-content">
+                                    <div>
+                                        <div class="delivery-name">Express Delivery</div>
+                                        <div class="delivery-duration">20–25 minutes</div>
+                                    </div>
+                                    <div class="delivery-price">
+                                        <div class="price-text">+&#8358;3.99</div>
+                                        <div class="delivery-selected">
+                                            <input type="radio" name="payment" value="wallet" class="radio-dot" required />
+                                        </div>
+                                    </div>
+                                </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        
+                        <!-- Special Instructions -->
+                        <div class="special-instructions">
+                            <h3>Special Instructions</h3>
+                            <textarea placeholder="Add any special instructions for the restaurant or delivery driver..." rows="4"></textarea>
+                            <div class="note">Optional - Let us know if you have any specific requests</div>
+                        </div>
+                    </div>
+                    
+                </div>
+
+                <div class="sidebar--footer">
+                    <div class="total--amount">
+                        <h5>Total:</h5>
+                        <div class="cart-total">&#8358; 0.00</div>
+                    </div>
+
+
+                    <div class="modal_content">
+                        <button class="checkout-btn modal_button">Checkout</button>
+
+                        <!-- modal -->
+                        <div class="overlay_modal">
+                            <div class="overlay_modal-content">
+                                <h4 class="overlay_title">Payment Options</h4>
+                                <i class="uil uil-times overlay_modal-close"></i>
+
+                                <div class="payment_container">    
+                                    <div class="payment-options">
+                                        <i class="uil uil-wallet"></i>
+
+                                        <label class="payment-option">Wallet
+                                            <input type="radio" name="payment" value="wallet" required />
+                                        </label>
+                                    </div>
+                                    
+                                    <div class="border_bottom"></div>
+
+                                    <div class="payment-options">
+                                        <i class="uil uil-paypal"></i>
+                                        <!-- <i class="uil uil-globe"></i> -->
+                                        
+                                        <label class="payment-option">Pay-Online
+                                            <input type="radio" name="payment" value="online" required />
+                                        </label>
+                                    </div>
+                        
+                                </div>
+
+                                <div>
+                                    <a href="./pages/shopping_cart_checkout.html">
+                                        <button type="submit" class="checkout-btn contact_button">
+                                            Choose method
+                                        </button>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </aside>
+    </main>
+
+    <!-- ========================= FOOTER =========================== -->
+    <footer class="footer">
+        <div class="footer_bg">
+            <div class="footer_container container grid">
+                <div>
+                    <h1 class="footer_title">KarryGo</h1>
+                </div>
+
+                <div class="footer_links">
+                    <div class="layer">
+                        <div class="location">
+                            <h2 class="download_title">LOCATION</h2>
+                        </div>
+
+                        <div class="download">
+                            <h2 class="download_title">DOWNLOAD</h2>
+                            <ul class="download_links">
+                                <li class="link">
+                                    <a href="" class="footer_link">Google Play Store</a>
+                                </li>
+
+                                <li>
+                                    <a href="" class="footer_link">iOS App Store</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="layer">
+                        <div class="download">
+                            <h2 class="download_title">GET HELP</h2>
+                            <ul class="download_links">
+                                <li class="link">
+                                    <a href="" class="footer_link">Email</a>
+                                </li>
+
+                                <li>
+                                    <a href="" class="footer_link">Chat</a>
+                                </li>
+                            </ul>
+                        </div>
+                    
+
+                        <div class="download">
+                            <h2 class="download_title">LEGAL</h2>
+                            <ul class="download_links">
+                                <li class="link">
+                                    <a href="" class="footer_link">Privacy</a>
+                                </li>
+
+                                <li>
+                                    <a href="" class="footer_link">Terms of use</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="footer_social container">
+                <p class="footer_copy">© 2024, 
+                    <a href="" class="footer_website_name">KarryGo.</a>
+                </p>
+
+                <div class="footer_socials">
+                    <a href="https://www.facebook.com/" target="_blank" class="footer_social">
+                        <i class="uil uil-facebook-f "></i>
+                    </a>
+    
+                    <a href="https://www.instagram.com/" target="_blank" class="footer_social">
+                        <i class="uil uil-instagram"></i>
+                    </a>
+    
+                    <a href="https://www.twitter.com/" target="_blank" class="footer_social">
+                        <i class="uil uil-twitter-alt"></i>
+                    </a>
+                </div>
+            </div>
+            
+        </div>
+    </footer>
+
+
+    <!-- ========================== CONTACT ME ========================= -->
+    <!-- <a href="#" class="contactme" id="contact-me">
+        <i class="uil uil-message contactme_icon"></i>
+    </a> -->
+
+    <div class="fab-container">
+        <div class="fab-wrapper">
+            <button id="fabButton" class="fab-button">
+                <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                        d="M12 6v6m0 0v6m0-6h6m-6 0H6"/>
+                </svg>
+                <!-- <i class="uil uil-ellipsis-h"></i> -->
+                 <!-- <i class="uil uil-navigator"></i> -->
+            </button>
+
+            <!-- FAB Menu -->
+            <div id="fabMenu" class="fab-menu hidden">
+                <!-- === Call ==== -->
+                <a href="#">
+                    <button class="fab-menu-item">
+                        <svg class="icon-sm" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+                        </svg>
+                    </button>
+                </a>
+
+                <!-- === Message ==== -->
+                <a href="#">
+                    <button class="fab-menu-item">
+                        <svg class="icon-sm" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
+                        </svg>
+                    </button>
+                </a>
+
+                <!-- === Order ==== -->
+                <a href="#">
+                    <button class="fab-menu-item">
+                        <svg class="icon-sm" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
+                        </svg>
+                    </button>
+                </a>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- ===================== SWIPER JS =================== -->
+    <script src="JS/swiper-bundle.min.js"></script>
+
+    <!-- ====================== IONICONS JS ========================  -->
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+
+    <!-- ====================== MAIN JS ========================  -->
+    <script src="JS/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,456 @@
+/*=========================== GOOGLE FONT ===========================*/
+/* @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap'); */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+
+:root{
+    --header-height: 3rem; 
+
+    /*==================== Colors =========================*/
+    /* change favourite colors */
+    --hue-color: 31; /* purple 250 - Green 142 - blue 230 - pink 340 - Red 1 - */
+
+    /* Orange 37 - 31 */
+
+    /*============== HSL color mode ======= */
+    --first-color: hsl(var(--hue-color), 100%, 50%);
+    --first-color-second: hsl(var(--hue-color), 100%, 50%);  
+    --first-color-alt: hsl(var(--hue-color), 94%, 43%);
+    --first-color-lighter: hsl(var(--hue-color), 95%, 65%);
+    /* --title-color: hsl(var(--hue-color), 8%, 29%); */
+    --title-color: hsl(var(--hue-color), 8%, 15%);
+    --text-color: hsl(var(--hue-color), 8%, 45%);
+    --text-color-light: hsl(var(--hue-color), 8%, 65%);
+    --input-color: hsl(var(--hue-color), 100%, 95%);
+    --body-color: hsl(var(--hue-color), 60%, 99%);
+    --primary-color: #99a98f;
+    --desent-color: #d6e8db;
+
+    --landingpage-body-color: hsl(var(--hue-color), 35%, 45%);
+    --container-color: #fff;
+    --scroll-bar-color: hsl(var(--hue-color), 12%, 90%);
+    --scroll-thumb-color: hsl(var(--hue-color), 12%, 80%);
+
+    /*================= Landing Page Colors =========================*/
+    /* change favourite colors */
+    --huee-colors: 22; /* red 11 - 22 - 37 */
+
+
+    /*============== HSL color mode ======= */
+    --testing-color: hsl(var(--hue-colors), 94%, 56%);
+
+    /*====== Font and typography======= */
+    --body-font: 'Poppins', sans-serif;
+
+    /* ===== .5ren = 8px, 1rem = 16px, 1.5rem = 24px ====== */
+    --bigger-font-size: 2rem;
+    --big-font-size: 1.5rem;
+    --h1-font-size: 1.25rem;
+    --h2-font-size: 1.125rem;
+    --h3-font-size: 1rem;
+    --normal-font-size: .938rem;
+    --small-font-size: .813rem;
+    --smaller-font-size: .75rem;
+
+    /* 1.12rem */
+
+    /* ===== Font weight ====== */
+    --font-medium: 500; 
+    --font-semi-bold: 600;
+
+    /* ===== Margenes Bottom ===== */
+    /* .25rem = 4px, .5rem = 8px, .75rem = 12px */
+    --mb-0-25: .25rem;
+    --mb-0-5: .5rem;
+    --mb-0-75: .75rem;
+    --mb-1: 1rem;
+    --mb-1-5: 1.5rem;
+    --mb-2: 2rem;
+    --mb-2-5: 2.5rem;
+    --mb-3: 3rem;
+
+    /*========= z index =========*/
+    --z-tooltip: 10; 
+    --z-fixed: 100;
+    --z-modal: 100;
+
+}
+
+/* font size for large devices */
+@media screen and (min-width: 968px) {
+    :root {
+        --bigger-font-size: 2.97rem;
+        --big-font-size: 2rem;
+        --h1-font-size: 1.4rem;
+        --h2-font-size: 1.25rem;
+        --h3-font-size: 1.125rem;
+        --normal-font-size: 1rem;
+        --small-font-size: .875rem;
+        --smaller-font-size: .813rem;
+    }
+}
+
+/* ========= Base =========== */
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html{
+    scroll-behavior: smooth;
+}
+
+body{
+    /* margin: 0 0 var(--header-height) 0; */
+    font-family: var(--body-font);
+    font-size: var(--normal-font-size);
+    background-color: var(--body-color);
+    color: var(--text-color);
+}
+
+.body{
+    color: var(--text-color);
+}
+
+h1,h2,h3,h4{
+    color: var(--title-color);
+    font-weight: var(--font-semi-bold);
+}
+
+
+ul{
+    list-style: none;
+}
+
+a{
+    text-decoration: none;
+}
+
+input{
+    border: none;
+    outline: none;
+}
+
+img{
+    max-width: 100%;
+    /* height: auto; */
+}
+
+
+
+/* ======================= Layout =============== */
+.container{
+    max-width: 100%;
+    padding: 0 5%;
+}
+
+header{
+    width: 100%;
+    /* position: fixed; */
+    /* bottom: 0; */
+    top: 0;
+    left: 0;
+    z-index: var(--z-fixed);
+    background-color: var(--body-color);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.nav{
+    max-width: 968px;
+    height: calc(var(--header-height) + .5rem);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    /* margin-top: var(--mb-1); */
+    transition: all 0.5s ease-in-out;
+    margin-bottom: 0px;
+    padding: 0 7vw;
+}
+
+.nav h1 {
+    font-size: var(--h1-font-size);
+    /* font-size: 24px; */
+}
+
+.search-bar {
+    padding: 10px;
+    width: 60%;
+    max-width: 400px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    /* border: none; */
+    outline: none;
+}
+
+.main{
+    margin-top: 1rem;
+}
+
+.restaurant-meta{
+    position: absolute;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    margin-right: 3rem;
+    cursor: pointer;
+}
+
+.meta-rating,
+.meta-price,
+.meta-status{
+    color: var(--title-color);
+}
+
+.meta-rating:hover,
+.meta-price:hover,
+.meta-status:hover{
+    color: var(--first-color);
+}
+
+.restaurant-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(227px, 1fr));
+    gap: 20px;
+    padding: 30px;
+    max-width: 1200px;
+    margin: auto;
+}
+
+.restaurant-card {
+    background-color: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s;
+}
+
+.restaurant-card:hover {
+    transform: translateY(-5px);
+}
+
+.restaurant-image {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+}
+
+.restaurant-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+}
+
+.restaurant-name {
+    margin: 0;
+    /* font-size: 18px; */
+    font-size: var(--h3-font-size);
+    font-weight: var(--font-bold);
+}
+
+.restaurant-type,
+.restaurant-rating {
+    font-size: 14px;
+    margin-top: 5px;
+}
+
+.restaurant-rating{
+    text-align: center;
+}
+
+.restaurant-status{
+    cursor: pointer;
+    padding: 0 10px;
+    color: #fff;
+    border-radius: 5px;
+    border: none;
+    transition: all 0.2s;
+    margin-top: 10px;
+    width: 80px;
+    line-height: 30px;
+    font-size: 12px;
+    transition: all 0.2s;
+}
+
+
+.restaurant-status.open {
+    background-color: rgb(2, 170, 2);
+}
+
+.restaurant-status.open:hover {
+    color: green;
+    background-color: #fff;
+    border: 1px solid green;
+    box-shadow: 00 2px 15px rgb(0, 99, 0);
+}
+
+.restaurant-status.closed {
+    background-color: rgb(253, 37, 37);
+}
+
+.restaurant-status.closed:hover {
+    color: red;
+    background-color: #fff;
+    border: 1px solid red;
+    box-shadow: 00 2px 15px rgb(238, 19, 19);
+}
+
+
+/* ======== hsgvhvdh */
+.restaurant-card {
+  /* font-family: sans-serif; */
+}
+
+.image-container {
+  position: relative;
+}
+
+.image-container img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+}
+
+.delivery-time {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: #32b768;
+  color: white;
+  font-size: 0.8rem;
+  padding: 4px 8px;
+  border-radius: 6px;
+}
+
+.rating {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: white;
+  font-size: 0.8rem;
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-weight: bold;
+}
+
+.restaurant-details {
+  padding: 12px 16px;
+}
+
+.restaurant-details h3 {
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+.restaurant-details .description {
+  color: #666;
+  font-size: 0.9rem;
+  margin: 6px 0;
+}
+
+.delivery-info {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.85rem;
+  margin-top: 8px;
+}
+
+.fee {
+  color: #333;
+}
+
+.free {
+  color: #32b768;
+  font-weight: bold;
+}
+
+
+
+
+/* ===================== MEDIA OUERIES ==================== */
+/* For small devices */
+@media screen and (max-width: 350px) {
+    .container{
+        padding: 0 5%;
+    }
+
+    .landing-page-container,
+    .home{
+        /* padding: 0 3%; */
+        padding: 0 3vw;
+    }
+
+    .nav_logo{
+        width: 40px;
+    }
+}
+
+
+@media screen and (min-width: 768px) { 
+    .container{
+        max-width: 100%;
+        padding: 0 9%;
+    }
+
+    .lp-container{
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    body{
+        margin: 0;
+    }
+
+    .section{
+        padding: 6rem 0 2rem;
+    }
+
+    .section_subtitle{
+        margin-bottom: 4rem;
+    }
+
+    .header{
+        bottom: initial;
+    }
+
+    .header{
+        padding: 0 1rem;
+    }
+
+    .nav_logo{
+        /* width: 70px; */
+        width: 57px;
+    }
+
+    .nav,
+    .head{
+        height: calc(var(--header-height) + 1.5rem);
+        column-gap: 1rem;
+        gap: 30px;
+    }
+
+    .restaurant-meta{
+        gap: 25px;
+        margin-right: 12rem;
+    }
+
+    .restaurant-grid {
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        max-width: 1200px;
+        margin: auto;
+    }
+
+    .restaurant-type,
+    .restaurant-status,
+    .restaurant-rating {
+        font-size: 15px;
+    }
+
+    .restaurant-status{
+        width: 100px;
+        line-height: 30px;
+    }
+}

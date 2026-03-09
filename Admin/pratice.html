@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Driver Dashboard</title>
+  <!-- =========================== CSS ========================== -->
+    <link rel="stylesheet" href="../css/dashboard.css" />
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen flex flex-col">
+  <!-- Top Bar -->
+  <header class="bg-white shadow p-4 flex justify-between items-center">
+    <h1 class="text-xl font-bold text-orange-600">KarryGo Driver</h1>
+    <div class="flex items-center gap-4">
+      <span class="font-medium">John Doe</span>
+      <button class="px-3 py-1 rounded-full bg-green-500 text-white text-sm">Online</button>
+    </div>
+  </header>
+
+  <div class="flex flex-1">
+    <!-- Sidebar -->
+    <aside class="w-64 bg-white shadow-md hidden md:block">
+      <nav class="flex flex-col p-4 space-y-4">
+        <a href="#" class="text-gray-700 hover:text-orange-600">📦 Orders</a>
+        <a href="#" class="text-gray-700 hover:text-orange-600">💰 Earnings</a>
+        <a href="#" class="text-gray-700 hover:text-orange-600">👤 Profile</a>
+        <a href="#" class="text-gray-700 hover:text-orange-600">🛠️ Settings</a>
+        <a href="#" class="text-gray-700 hover:text-orange-600">📞 Support</a>
+      </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 p-6">
+      <!-- Orders Section -->
+      <section class="mb-6">
+        <h2 class="text-lg font-semibold mb-4">New Orders</h2>
+        <div class="bg-white rounded-xl shadow p-4 flex justify-between items-center mb-3">
+          <div>
+            <p class="font-medium">🍔 Burger Palace</p>
+            <p class="text-sm text-gray-500">Pickup: Main Street • Drop-off: 2km</p>
+          </div>
+          <div class="flex gap-2">
+            <button class="px-3 py-1 bg-green-500 text-white rounded-lg">Accept</button>
+            <button class="px-3 py-1 bg-red-500 text-white rounded-lg">Reject</button>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-xl shadow p-4 flex justify-between items-center">
+          <div>
+            <p class="font-medium">🍕 Pizza Hub</p>
+            <p class="text-sm text-gray-500">Pickup: Market Road • Drop-off: 5km</p>
+          </div>
+          <div class="flex gap-2">
+            <button class="px-3 py-1 bg-green-500 text-white rounded-lg">Accept</button>
+            <button class="px-3 py-1 bg-red-500 text-white rounded-lg">Reject</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Earnings Section -->
+      <section>
+        <h2 class="text-lg font-semibold mb-4">Earnings</h2>
+        <div class="grid grid-cols-3 gap-4">
+          <div class="bg-white p-4 rounded-xl shadow text-center">
+            <p class="text-gray-500 text-sm">Today</p>
+            <p class="text-xl font-bold text-green-600">$35</p>
+          </div>
+          <div class="bg-white p-4 rounded-xl shadow text-center">
+            <p class="text-gray-500 text-sm">This Week</p>
+            <p class="text-xl font-bold text-green-600">$210</p>
+          </div>
+          <div class="bg-white p-4 rounded-xl shadow text-center">
+            <p class="text-gray-500 text-sm">This Month</p>
+            <p class="text-xl font-bold text-green-600">$980</p>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- Bottom Nav (Mobile) -->
+  <nav class="md:hidden fixed bottom-0 left-0 right-0 bg-white shadow-md flex justify-around p-2">
+    <a href="#" class="text-orange-600">📦</a>
+    <a href="#" class="text-gray-600">💰</a>
+    <a href="#" class="text-gray-600">👤</a>
+    <a href="#" class="text-gray-600">⚙️</a>
+  </nav>
+</body>
+</html>
